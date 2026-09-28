@@ -1,0 +1,35 @@
+name: medinest
+description: "MediNest - Never Miss a Tablet. Never Miss a Check-up. Modern Elderly-Friendly Medicine & Hospital Tracker"
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
+  shared_preferences: ^2.3.2
+  url_launcher: ^6.3.0
+  flutter_local_notifications: ^17.2.2
+  pdf: ^3.11.1
+  printing: ^5.13.2
+  flutter_tts: ^4.0.2
+  uuid: ^4.5.1
+  path_provider: ^2.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/
+    - assets/sounds/

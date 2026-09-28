@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MediNest - Never Miss a Tablet. Never Miss a Check-up.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary-green: #4CAF50;
+      --primary-green-dark: #2E7D32;
+      --primary-green-light: #E8F5E9;
+      --accent-blue: #2196F3;
+      --accent-blue-dark: #1565C0;
+      --accent-blue-light: #E3F2FD;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --card-bg: #FFFFFF;
+      --text-primary: #1E293B;
+      --text-secondary: #64748B;
+      --text-muted: #94A3B8;
+      --border: #E2E8F0;
+      --warning: #ED6C02;
+      --warning-light: #FFF3E0;
+      --danger: #D32F2F;
+      --danger-light: #FFEBEE;
+      --radius-card: 20px;
+      --radius-btn: 16px;
+      --font-base: 16px;
+    }
+
+    body.large-text-mode {
+      --font-base: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Telugu', 'Noto Sans Devanagari', -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #E2E8F0;
+      color: var(--text-primary);
+      font-size: var(--font-base);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Device Mockup Shell */
+    .device-shell {
+      width: 100%;
+      max-width: 440px;
+      height: 900px;
+      max-height: 96vh;
+      background: var(--surface);
+      border-radius: 44px;
+      box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.3), 0 0 0 10px #1E293B, 0 0 0 12px #334155;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Android Status Bar */
+    .status-bar {
+      height: 38px;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      background: var(--surface);
+      z-index: 10;
+      user-select: none;
+    }
+    .status-icons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    /* Screen Container */
+    .screen-viewport {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .screen {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      padding-bottom: 90px;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* App Header */
+    .app-header {
+      background: var(--surface);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon-pill {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: var(--primary-green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-green);
+      font-size: 20px;
+    }
+    .logo-text {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .logo-text span:first-child { color: var(--primary-green); }
+    .logo-text span:last-child { color: var(--accent-blue); }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn-round {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--text-primary);
+      transition: all 0.2s;
+    }
+    .icon-btn-round:hover {
+      background: var(--primary-green-light);
+      border-color: var(--primary-green);
+    }
+    .icon-btn-round.emergency {
+      background: var(--danger-light);
+      border-color: rgba(211, 47, 47, 0.4);
+      color: var(--danger);
+    }
+
+    /* Language Pill */
+    .lang-pill {
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: var(--primary-green-light);
+      color: var(--primary-green-dark);
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid rgba(76, 175, 80, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      border: 1.5px solid var(--border);
+      padding: 18px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+      margin-bottom: 16px;
+    }
+    .card.green-tint {
+      background: #F1F8F4;
+      border-color: rgba(76, 175, 80, 0.3);
+    }
+    .card.blue-tint {
+      background: #F0F7FF;
+      border-color: rgba(33, 150, 243, 0.3);
+    }
+    .card.danger-tint {
+      background: var(--danger-light);
+      border-color: rgba(211, 47, 47, 0.4);
+    }
+    .card.warning-tint {
+      background: var(--warning-light);
+      border-color: rgba(237, 108, 2, 0.4);
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      height: 56px;
+      border-radius: var(--radius-btn);
+      border: none;
+      font-size: 17px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s, box-shadow 0.2s;
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn-primary {
+      background: var(--primary-green);
+      color: #FFFFFF;
+      box-shadow: 0 6px 16px rgba(76, 175, 80, 0.35);
+    }
+    .btn-secondary {
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      box-shadow: 0 6px 16px rgba(33, 150, 243, 0.35);
+    }
+    .btn-danger {
+      background: var(--danger);
+      color: #FFFFFF;
+      box-shadow: 0 6px 16px rgba(211, 47, 47, 0.35);
+    }
+    .btn-outline {
+      background: #FFFFFF;
+      color: var(--text-primary);
+      border: 1.5px solid var(--border);
+    }
+    .btn-sm {
+      height: 48px;
+      font-size: 15px;
+    }
+
+    /* Voice Reader Bar */
+    .voice-bar {
+      background: var(--accent-blue-light);
+      border: 1.5px solid rgba(33, 150, 243, 0.4);
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .voice-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Summary Grid */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: var(--radius-card);
+      padding: 16px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .stat-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .stat-val {
+      font-size: 26px;
+      font-weight: 900;
+    }
+    .stat-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .stat-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Next Medicine Card */
+    .next-card {
+      background: white;
+      border: 2px solid var(--primary-green);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(76, 175, 80, 0.15);
+      margin-bottom: 20px;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      height: 72px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      padding: 0 10px;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+    .nav-item i {
+      font-size: 20px;
+    }
+    .nav-item.active {
+      color: var(--primary-green-dark);
+      background: var(--primary-green-light);
+    }
+
+    /* Floating Add Button */
+    .fab {
+      position: absolute;
+      bottom: 84px;
+      right: 20px;
+      background: var(--primary-green);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+      cursor: pointer;
+      border: none;
+      z-index: 25;
+      transition: transform 0.1s;
+    }
+    .fab:active {
+      transform: scale(0.96);
+    }
+
+    /* Notification simulation toast */
+    .notification-bar-shade {
+      position: absolute;
+      top: -160px;
+      left: 12px;
+      right: 12px;
+      background: #1E293B;
+      color: white;
+      padding: 16px;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      z-index: 100;
+      transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .notification-bar-shade.show {
+      top: 12px;
+    }
+
+    /* Modal Sheet */
+    .modal-sheet {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 28px 28px 0 0;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+      padding: 24px 20px;
+      max-height: 85%;
+      overflow-y: auto;
+      z-index: 50;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+    .modal-sheet.open {
+      transform: translateY(0);
+    }
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 45;
+      display: none;
+    }
+    .modal-backdrop.show {
+      display: block;
+    }
+
+    /* Responsive for desktop toggle */
+    .desktop-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      padding: 12px 18px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      display: flex;
+      gap: 10px;
+      z-index: 999;
+      font-size: 13px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Android Phone Frame -->
+  <div class="device-shell">
+
+    <!-- Interactive Simulated Android Notification Shade -->
+    <div id="notificationShade" class="notification-bar-shade">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <span style="font-size: 11px; font-weight: 700; color: #4CAF50; display: flex; align-items: center; gap: 6px;">
+          <i class="fa-solid fa-capsules"></i> MEDINEST ALARM • HEADS-UP
+        </span>
+        <span style="font-size: 11px; color: #94A3B8;">Just now</span>
+      </div>
+      <div style="font-weight: 800; font-size: 15px; margin-bottom: 2px;" id="notifTitle">💊 Time to take Ketoconazole 200mg</div>
+      <div style="font-size: 13px; color: #CBD5E1; margin-bottom: 12px;" id="notifBody">After Lunch • Controls dandruff & fungal infection</div>
+      <div style="display: flex; gap: 8px;">
+        <button onclick="dismissNotification(true)" style="flex: 1; padding: 10px; border-radius: 10px; background: #4CAF50; color: white; border: none; font-weight: 800; font-size: 13px; cursor: pointer;">
+          ✓ Taken
+        </button>
+        <button onclick="dismissNotification(false)" style="flex: 1; padding: 10px; border-radius: 10px; background: #334155; color: white; border: none; font-weight: 700; font-size: 13px; cursor: pointer;">
+          ⏱ Snooze (10m)
+        </button>
+      </div>
+    </div>
+
+    <!-- Android Status Bar -->
+    <div class="status-bar">
+      <span id="statusBarClock">12:30</span>
+      <div class="status-icons">
+        <i class="fa-solid fa-wifi"></i>
+        <i class="fa-solid fa-signal"></i>
+        <i class="fa-solid fa-battery-full"></i>
+      </div>
+    </div>
+
+    <!-- App Header -->
+    <header class="app-header">
+      <div class="logo-badge">
+        <div class="logo-icon-pill">
+          <i class="fa-solid fa-capsules"></i>
+        </div>
+        <div class="logo-text">
+          <span>Medi</span><span>Nest</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <!-- Language Switcher -->
+        <div class="lang-pill" onclick="cycleLanguage()" id="langBadge">
+          <i class="fa-solid fa-language"></i> <span id="currentLangLabel">EN</span>
+        </div>
+        <!-- Emergency Card Shortcut -->
+        <div class="icon-btn-round emergency" title="Emergency Medical Card" onclick="switchTab('emergency')">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Screen Viewport -->
+    <div class="screen-viewport">
+
+      <!-- ================= 1. HOME SCREEN ================= -->
+      <section id="screen-home" class="screen active" style="padding: 16px 20px;">
+        <!-- Greeting -->
+        <h1 style="font-size: 24px; font-weight: 900; margin-bottom: 2px;" id="txtGreeting">Good Morning, Ammu 🌸</h1>
+        <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 14px;">Here is your health schedule for today.</p>
+
+        <!-- Voice Reader Bar -->
+        <div class="voice-bar" onclick="triggerVoiceReading()">
+          <div class="voice-icon">
+            <i class="fa-solid fa-volume-high" id="voicePlayIcon"></i>
+          </div>
+          <div>
+            <div style="font-weight: 800; font-size: 14px;" id="txtVoiceLabel">Listen to Today's Medicines</div>
+            <div style="font-size: 12px; color: var(--text-secondary);" id="txtVoiceSub">Tap to play voice audio assistant</div>
+          </div>
+        </div>
+
+        <!-- 4 Large Summary Cards -->
+        <div class="summary-grid">
+          <div class="stat-card" style="border-color: rgba(33, 150, 243, 0.4); background: #F0F7FF;">
+            <div class="stat-header">
+              <div class="stat-icon" style="background: rgba(33, 150, 243, 0.15); color: var(--accent-blue);">
+                <i class="fa-solid fa-pills"></i>
+              </div>
+              <div class="stat-val" style="color: var(--accent-blue);" id="statTabletsToday">3</div>
+            </div>
+            <div class="stat-label" id="lblTabletsToday">Tablets Today</div>
+            <div class="stat-sub">Doses Scheduled</div>
+          </div>
+
+          <div class="stat-card" style="border-color: rgba(76, 175, 80, 0.4); background: #F1F8F4;">
+            <div class="stat-header">
+              <div class="stat-icon" style="background: rgba(76, 175, 80, 0.15); color: var(--primary-green);">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div class="stat-val" style="color: var(--primary-green);" id="statTaken">1</div>
+            </div>
+            <div class="stat-label" id="lblTaken">Taken</div>
+            <div class="stat-sub">Completed</div>
+          </div>
+
+          <div class="stat-card" style="border-color: rgba(237, 108, 2, 0.4); background: #FFF8E1;">
+            <div class="stat-header">
+              <div class="stat-icon" style="background: rgba(237, 108, 2, 0.15); color: var(--warning);">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div class="stat-val" style="color: var(--warning);" id="statUpcoming">2</div>
+            </div>
+            <div class="stat-label" id="lblUpcoming">Upcoming</div>
+            <div class="stat-sub">Pending Now</div>
+          </div>
+
+          <div class="stat-card" onclick="switchTab('hospital')" style="border-color: rgba(142, 36, 170, 0.3); background: #F3E5F5; cursor: pointer;">
+            <div class="stat-header">
+              <div class="stat-icon" style="background: rgba(142, 36, 170, 0.15); color: #8E24AA;">
+                <i class="fa-solid fa-hospital"></i>
+              </div>
+              <div class="stat-val" style="color: #8E24AA;">30</div>
+            </div>
+            <div class="stat-label">Hospital Visit</div>
+            <div class="stat-sub">Days Left (Oct 28)</div>
+          </div>
+        </div>
+
+        <!-- Next Medicine Highlight Card -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h2 style="font-size: 18px; font-weight: 800;">Next Medicine</h2>
+          <span style="font-size: 13px; font-weight: 700; color: var(--accent-blue); cursor: pointer;" onclick="openMedDetails(0)">Details →</span>
+        </div>
+
+        <div class="next-card" id="nextMedCard">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span style="background: var(--primary-green-light); color: var(--primary-green-dark); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800;">
+              <i class="fa-solid fa-bell"></i> NEXT DOSE
+            </span>
+            <span style="background: var(--accent-blue-light); color: var(--accent-blue-dark); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800;" id="nextCountdown">
+              <i class="fa-solid fa-stopwatch"></i> In 1h 45m
+            </span>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px;">
+            <div style="width: 50px; height: 50px; border-radius: 16px; background: var(--primary-green-light); display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--primary-green);">
+              <i class="fa-solid fa-tablets"></i>
+            </div>
+            <div>
+              <div style="font-size: 20px; font-weight: 900;" id="nextMedName">Ketoconazole 200mg</div>
+              <div style="font-size: 13px; color: var(--text-secondary); font-weight: 600;">
+                <span style="color: var(--accent-blue); font-weight: 800;">01:30 PM</span> • After Lunch 🍲
+              </div>
+            </div>
+          </div>
+
+          <div style="background: #F1F5F9; padding: 10px 14px; border-radius: 12px; font-size: 13px; margin-bottom: 16px; font-weight: 500;">
+            <strong>Purpose:</strong> Controls dandruff and reduces fungal infection
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-primary" onclick="markNextDoseTaken()" style="flex: 3; height: 50px; font-size: 16px;">
+              <i class="fa-solid fa-check"></i> Taken
+            </button>
+            <button class="btn btn-outline" onclick="triggerNotificationSim()" style="flex: 2; height: 50px; font-size: 14px;">
+              <i class="fa-solid fa-bell"></i> Alarm (10m)
+            </button>
+          </div>
+        </div>
+
+        <!-- Monthly Hospital Check-up Preview -->
+        <div class="card" style="border-color: rgba(33, 150, 243, 0.4); margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--accent-blue-light); color: var(--accent-blue); display: flex; align-items: center; justify-content: center; font-size: 18px;">
+                <i class="fa-solid fa-user-doctor"></i>
+              </div>
+              <div>
+                <div style="font-weight: 800; font-size: 15px;">Dermatologist Check-up</div>
+                <div style="font-size: 12px; color: var(--text-secondary);">Dr. K. Ramesh • Apollo Hospital</div>
+              </div>
+            </div>
+            <span style="background: var(--accent-blue-light); color: var(--accent-blue-dark); font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 8px;">
+              30 Days Left
+            </span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-outline btn-sm" onclick="callPhone('+919848012345')">
+              <i class="fa-solid fa-phone" style="color: var(--primary-green);"></i> Call Doctor
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="switchTab('hospital')">
+              Tracker & GPS
+            </button>
+          </div>
+        </div>
+
+        <!-- Today's Schedule Checklist -->
+        <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 10px;">Today's Medicine Schedule</h3>
+        <div id="todayScheduleList"></div>
+      </section>
+
+      <!-- ================= 2. MEDICINES TRACKER ================= -->
+      <section id="screen-medicines" class="screen" style="padding: 16px 20px;">
+        <h1 style="font-size: 22px; font-weight: 900; margin-bottom: 12px;">Medicine Tracker</h1>
+
+        <!-- Search -->
+        <div style="background: white; border-radius: 14px; border: 1.5px solid var(--border); padding: 10px 14px; display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <i class="fa-solid fa-magnifying-glass" style="color: var(--text-secondary);"></i>
+          <input type="text" id="medSearchInput" placeholder="Search tablet or purpose..." oninput="filterMedicines()" style="border: none; outline: none; width: 100%; font-size: 14px; font-weight: 600;">
+        </div>
+
+        <!-- Filter Chips -->
+        <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px;">
+          <button class="filter-chip active" onclick="setMedFilter('All', this)">All</button>
+          <button class="filter-chip" onclick="setMedFilter('Morning', this)">Morning</button>
+          <button class="filter-chip" onclick="setMedFilter('Afternoon', this)">Afternoon</button>
+          <button class="filter-chip" onclick="setMedFilter('Night', this)">Night</button>
+        </div>
+
+        <!-- Low Stock Alert Banner -->
+        <div id="lowStockBanner" class="card warning-tint" style="display: none; padding: 12px 16px; margin-bottom: 14px;">
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <i class="fa-solid fa-triangle-exclamation" style="color: var(--warning); font-size: 20px;"></i>
+            <div>
+              <div style="font-weight: 800; font-size: 13px; color: var(--warning);">Low Stock Notice</div>
+              <div style="font-size: 12px;">Ketoconazole has only 5 tablets left. Refill soon!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Medicines List -->
+        <div id="medicineCardsContainer"></div>
+      </section>
+
+      <!-- ================= 3. HOSPITAL TRACKER ================= -->
+      <section id="screen-hospital" class="screen" style="padding: 16px 20px;">
+        <h1 style="font-size: 22px; font-weight: 900; margin-bottom: 14px;">Monthly Hospital Tracker</h1>
+
+        <!-- Big Countdown Card -->
+        <div class="card" style="border: 2px solid var(--accent-blue); text-align: center; padding: 22px 18px;">
+          <span style="background: var(--accent-blue-light); color: var(--accent-blue-dark); padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 800;">
+            <i class="fa-solid fa-calendar-check"></i> MONTHLY APPOINTMENT
+          </span>
+          <div style="font-size: 38px; font-weight: 900; color: var(--accent-blue-dark); margin: 12px 0 4px;" id="hospitalCountdownDays">
+            30 Days Left
+          </div>
+          <div style="font-weight: 700; font-size: 16px; margin-bottom: 4px;" id="hospitalVisitDate">October 28, 2026 at 10:30 AM</div>
+          <div style="font-size: 14px; color: var(--primary-green-dark); font-weight: 800;">Dr. K. Ramesh (Dermatologist)</div>
+          <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 18px;">Apollo Hospital, Jubilee Hills, Hyderabad</div>
+
+          <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <button class="btn btn-primary btn-sm" onclick="markHospitalCompleted()">
+              <i class="fa-solid fa-circle-check"></i> Mark Completed
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="rescheduleHospital()">
+              <i class="fa-solid fa-calendar-days"></i> Reschedule
+            </button>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="callPhone('+919848012345')">
+            <i class="fa-solid fa-phone" style="color: var(--primary-green);"></i> Call Doctor
+          </button>
+        </div>
+
+        <!-- Reminder Stages -->
+        <div class="card">
+          <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 10px;">
+            <i class="fa-solid fa-bell" style="color: var(--primary-green);"></i> Active Reminder Schedule
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
+            <div style="display: flex; gap: 10px; align-items: center;"><i class="fa-solid fa-circle-check" style="color: var(--primary-green);"></i> 7 Days Before: Arrange transport & test reports</div>
+            <div style="display: flex; gap: 10px; align-items: center;"><i class="fa-solid fa-circle-check" style="color: var(--primary-green);"></i> 3 Days Before: Appointment slot confirmation</div>
+            <div style="display: flex; gap: 10px; align-items: center;"><i class="fa-solid fa-circle-check" style="color: var(--primary-green);"></i> 1 Day Before: Prepare past prescription notes</div>
+            <div style="display: flex; gap: 10px; align-items: center;"><i class="fa-solid fa-circle-check" style="color: var(--primary-green);"></i> Morning of Visit: 8:00 AM departure prep alert</div>
+            <div style="display: flex; gap: 10px; align-items: center;"><i class="fa-solid fa-circle-check" style="color: var(--primary-green);"></i> 1 Hour Before: Leave for hospital check-up</div>
+          </div>
+        </div>
+
+        <!-- Hospital Contact Section -->
+        <div class="card">
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--accent-blue-light); color: var(--accent-blue); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+              <i class="fa-solid fa-hospital"></i>
+            </div>
+            <div>
+              <div style="font-size: 17px; font-weight: 900;">Apollo Hospital</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">Hours: 9:00 AM - 6:00 PM (Mon-Sat)</div>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: var(--text-primary); margin-bottom: 12px;">
+            <i class="fa-solid fa-location-dot" style="color: var(--text-secondary);"></i> Road No. 72, Jubilee Hills, Hyderabad
+          </p>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary btn-sm" onclick="callPhone('+914023456789')">
+              <i class="fa-solid fa-phone"></i> Call Hospital
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="openMap('Apollo Hospital Jubilee Hills Hyderabad')">
+              <i class="fa-solid fa-map-location-dot"></i> Navigate GPS
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. HEALTH JOURNAL ================= -->
+      <section id="screen-journal" class="screen" style="padding: 16px 20px;">
+        <h1 style="font-size: 22px; font-weight: 900; margin-bottom: 14px;">Daily Health Diary</h1>
+
+        <div class="card">
+          <div style="font-weight: 800; font-size: 14px; margin-bottom: 8px;">How are you feeling today? (Mood)</div>
+          <div style="display: flex; justify-content: space-around; margin-bottom: 16px;">
+            <div class="mood-box active" onclick="setMood(this, '😊')"><span style="font-size: 28px;">😊</span><br><span style="font-size: 11px; font-weight: 700;">Happy</span></div>
+            <div class="mood-box" onclick="setMood(this, '😐')"><span style="font-size: 28px;">😐</span><br><span style="font-size: 11px; font-weight: 700;">Okay</span></div>
+            <div class="mood-box" onclick="setMood(this, '😔')"><span style="font-size: 28px;">😔</span><br><span style="font-size: 11px; font-weight: 700;">Low</span></div>
+            <div class="mood-box" onclick="setMood(this, '😣')"><span style="font-size: 28px;">😣</span><br><span style="font-size: 11px; font-weight: 700;">Pain</span></div>
+          </div>
+
+          <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">Itching Severity</div>
+          <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+            <button class="chip-select" onclick="setItch(this, 'None')">None</button>
+            <button class="chip-select active" onclick="setItch(this, 'Mild')">Mild</button>
+            <button class="chip-select" onclick="setItch(this, 'Moderate')">Moderate</button>
+            <button class="chip-select" onclick="setItch(this, 'Severe')">Severe</button>
+          </div>
+
+          <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">Hair Fall</div>
+          <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+            <button class="chip-select" onclick="setHair(this, 'None')">None</button>
+            <button class="chip-select active" onclick="setHair(this, 'Less')">Less</button>
+            <button class="chip-select" onclick="setHair(this, 'Moderate')">Moderate</button>
+            <button class="chip-select" onclick="setHair(this, 'Heavy')">Heavy</button>
+          </div>
+
+          <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">Notes / Remarks</div>
+          <textarea id="journalNoteInput" rows="2" style="width: 100%; border-radius: 12px; border: 1.5px solid var(--border); padding: 10px; font-size: 13px; outline: none; margin-bottom: 14px;" placeholder="Scalp feels better after Ketoconazole..."></textarea>
+
+          <button class="btn btn-primary btn-sm" onclick="saveJournalEntry()">
+            <i class="fa-solid fa-floppy-disk"></i> Save Today's Entry
+          </button>
+        </div>
+
+        <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 10px;">Past Diary Entries</h3>
+        <div id="journalEntriesList"></div>
+      </section>
+
+      <!-- ================= 5. PROFILE & SETTINGS ================= -->
+      <section id="screen-profile" class="screen" style="padding: 16px 20px;">
+        <h1 style="font-size: 22px; font-weight: 900; margin-bottom: 14px;">Profile & Settings</h1>
+
+        <!-- User Identity Card -->
+        <div class="card" style="display: flex; gap: 14px; align-items: center;">
+          <div style="width: 58px; height: 58px; border-radius: 50%; background: var(--primary-green-light); display: flex; align-items: center; justify-content: center; font-size: 30px;">
+            🌸
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 20px; font-weight: 900;">Ammu</div>
+            <div style="font-size: 13px; color: var(--text-secondary);">Blood Group: <strong style="color: var(--danger);">O+ Positive</strong></div>
+          </div>
+          <button class="icon-btn-round" onclick="switchTab('emergency')"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <!-- Hub Links -->
+        <h3 style="font-size: 15px; font-weight: 800; color: var(--text-secondary); margin-bottom: 8px;">MEDICAL HUB</h3>
+        
+        <div class="card" style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="switchTab('emergency')">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <i class="fa-solid fa-truck-medical" style="color: var(--danger); font-size: 20px;"></i>
+            <div><div style="font-weight: 800; font-size: 14px;">Emergency Medical Card</div><div style="font-size: 11px; color: var(--text-secondary);">Speed dial family, doctor & 108</div></div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 14px;"></i>
+        </div>
+
+        <div class="card" style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="switchTab('history')">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <i class="fa-solid fa-chart-line" style="color: var(--primary-green); font-size: 20px;"></i>
+            <div><div style="font-weight: 800; font-size: 14px;">Medicine History & Calendar</div><div style="font-size: 11px; color: var(--text-secondary);">96% adherence, streaks & dose logs</div></div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 14px;"></i>
+        </div>
+
+        <div class="card" style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="switchTab('reports')">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <i class="fa-solid fa-file-pdf" style="color: #8E24AA; font-size: 20px;"></i>
+            <div><div style="font-weight: 800; font-size: 14px;">Doctor Clinical PDF Report</div><div style="font-size: 11px; color: var(--text-secondary);">Printable medical summary for consult</div></div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 14px;"></i>
+        </div>
+
+        <div class="card" style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="switchTab('ai')">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color: #FF8F00; font-size: 20px;"></i>
+            <div><div style="font-weight: 800; font-size: 14px;">Future AI Features</div><div style="font-size: 11px; color: var(--text-secondary);">Strip scanner, OCR & Doctor AI chat</div></div>
+          </div>
+          <i class="fa-solid fa-chevron-right" style="color: var(--text-muted); font-size: 14px;"></i>
+        </div>
+
+        <!-- Accessibility Toggles -->
+        <h3 style="font-size: 15px; font-weight: 800; color: var(--text-secondary); margin: 14px 0 8px;">ACCESSIBILITY</h3>
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div>
+              <div style="font-weight: 800; font-size: 14px;">Large Text Mode</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">Easier reading for elderly eyes</div>
+            </div>
+            <input type="checkbox" id="chkLargeText" onchange="toggleLargeText(this.checked)" style="width: 22px; height: 22px; accent-color: var(--primary-green);">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-weight: 800; font-size: 14px;">Voice Reader Enabled</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">Play audio instructions aloud</div>
+            </div>
+            <input type="checkbox" id="chkVoice" checked style="width: 22px; height: 22px; accent-color: var(--primary-green);">
+          </div>
+        </div>
+
+        <button class="btn btn-outline btn-sm" onclick="triggerNotificationSim()" style="margin-bottom: 10px;">
+          <i class="fa-solid fa-bell" style="color: var(--primary-green);"></i> Test Android Notification Bar
+        </button>
+      </section>
+
+      <!-- ================= 6. EMERGENCY CARD SCREEN ================= -->
+      <section id="screen-emergency" class="screen" style="padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <button class="icon-btn-round" onclick="switchTab('home')"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 style="font-size: 20px; font-weight: 900; color: var(--danger);">Emergency Medical Card</h1>
+        </div>
+
+        <!-- 3 Big Speed Dial Buttons -->
+        <div class="card danger-tint" style="padding: 16px;">
+          <div style="text-align: center; font-weight: 900; font-size: 13px; color: var(--danger); margin-bottom: 12px;">
+            <i class="fa-solid fa-phone-volume"></i> ONE-TAP EMERGENCY SPEED DIAL
+          </div>
+          <button class="btn btn-primary" onclick="callPhone('+919876543210')" style="margin-bottom: 10px;">
+            <i class="fa-solid fa-phone"></i> Call Family (+91 98765 43210)
+          </button>
+          <button class="btn btn-secondary" onclick="callPhone('+919848012345')" style="margin-bottom: 10px;">
+            <i class="fa-solid fa-user-doctor"></i> Call Doctor (+91 98480 12345)
+          </button>
+          <button class="btn btn-danger" onclick="callPhone('108')">
+            <i class="fa-solid fa-truck-medical"></i> Call Ambulance (108)
+          </button>
+        </div>
+
+        <!-- Medical Details -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 12px; color: var(--text-secondary);">Patient Name</div>
+              <div style="font-size: 22px; font-weight: 900;">Ammu</div>
+            </div>
+            <span style="background: var(--danger); color: white; padding: 6px 14px; border-radius: 12px; font-size: 16px; font-weight: 900;">
+              O+ Positive
+            </span>
+          </div>
+
+          <div style="background: var(--warning-light); padding: 12px; border-radius: 12px; border: 1px solid var(--warning); margin-bottom: 14px;">
+            <div style="font-size: 12px; font-weight: 800; color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> ALLERGIES & CONTRAINDICATIONS</div>
+            <div style="font-weight: 700; font-size: 14px; margin-top: 2px;">Penicillin, Sulfa drugs</div>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; color: var(--text-secondary);">Current Active Medications</div>
+            <div style="font-size: 14px; font-weight: 700; margin-top: 2px;">Ketoconazole 200mg, Cetirizine 10mg, Biotin & Multivitamin</div>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <div style="font-size: 12px; color: var(--text-secondary);">Primary Doctor</div>
+            <div style="font-size: 14px; font-weight: 700; margin-top: 2px;">Dr. K. Ramesh (Dermatologist) • Apollo Hospital</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 7. HISTORY SCREEN ================= -->
+      <section id="screen-history" class="screen" style="padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <button class="icon-btn-round" onclick="switchTab('profile')"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 style="font-size: 20px; font-weight: 900;">Medicine History</h1>
+        </div>
+
+        <div class="card" style="display: flex; gap: 16px; align-items: center;">
+          <div style="width: 74px; height: 74px; border-radius: 50%; border: 6px solid var(--primary-green); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: var(--primary-green-dark);">
+            96%
+          </div>
+          <div>
+            <div style="font-weight: 900; font-size: 17px;">Medicine Adherence</div>
+            <div style="font-size: 12px; color: var(--text-secondary);">Excellent routine! High compliance.</div>
+            <div style="font-size: 12px; color: var(--warning); font-weight: 800; margin-top: 4px;">🔥 7 Days Active Streak</div>
+          </div>
+        </div>
+
+        <!-- Color Legend -->
+        <div class="card" style="padding: 12px; display: flex; justify-content: space-around; font-size: 12px; font-weight: 700;">
+          <span><i class="fa-solid fa-circle" style="color: var(--primary-green);"></i> Taken</span>
+          <span><i class="fa-solid fa-circle" style="color: var(--warning);"></i> Snoozed</span>
+          <span><i class="fa-solid fa-circle" style="color: var(--danger);"></i> Missed</span>
+        </div>
+
+        <!-- Calendar Mockup -->
+        <div class="card">
+          <div style="font-weight: 800; font-size: 15px; margin-bottom: 12px;">September 2026</div>
+          <div id="calendarGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center;"></div>
+        </div>
+      </section>
+
+      <!-- ================= 8. REPORTS SCREEN ================= -->
+      <section id="screen-reports" class="screen" style="padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <button class="icon-btn-round" onclick="switchTab('profile')"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 style="font-size: 20px; font-weight: 900;">Clinical PDF Report</h1>
+        </div>
+
+        <div class="card" style="border: 2px solid var(--primary-green);">
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 14px;">
+            <i class="fa-solid fa-file-pdf" style="font-size: 32px; color: var(--primary-green);"></i>
+            <div>
+              <div style="font-weight: 900; font-size: 17px;">Doctor Consultation Summary</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">Generated for Ammu (Patient ID: MN-2026)</div>
+            </div>
+          </div>
+
+          <div style="font-size: 13px; line-height: 1.6; margin-bottom: 16px;">
+            • Active Prescriptions: Ketoconazole, Cetirizine, Biotin<br>
+            • Adherence Rating: 96% (34 doses recorded)<br>
+            • Hospital Visit: Scheduled with Dr. K. Ramesh (Oct 28)<br>
+            • Symptom Diary: Itching mild, Hair fall reduced
+          </div>
+
+          <button class="btn btn-primary" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Print / Download PDF Report
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= 9. AI FEATURES SCREEN ================= -->
+      <section id="screen-ai" class="screen" style="padding: 16px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <button class="icon-btn-round" onclick="switchTab('profile')"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 style="font-size: 20px; font-weight: 900; color: #E65100;">Future AI Suite</h1>
+        </div>
+
+        <div class="card" style="background: #FFF8E1; border-color: #FFB300;">
+          <div style="font-weight: 900; font-size: 16px; color: #E65100; margin-bottom: 4px;">Smart Strip Scanner</div>
+          <p style="font-size: 12px; margin-bottom: 10px;">Camera AI that extracts tablet name and expiration date.</p>
+          <button class="btn btn-sm" style="background: #FF8F00; color: white;" onclick="alert('📷 AI Strip Scanner: Detected Ketoconazole 200mg (Batch #KT-9821, Exp: 12/2027)')">
+            Try Strip Scanner
+          </button>
+        </div>
+
+        <div class="card">
+          <div style="font-weight: 900; font-size: 16px; margin-bottom: 4px;">Medicine Interaction Checker</div>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Checking: Ketoconazole + Cetirizine + Biotin</p>
+          <div style="background: var(--primary-green-light); padding: 10px; border-radius: 10px; color: var(--primary-green-dark); font-size: 12px; font-weight: 800;">
+            ✓ Safe: No negative drug interactions found.
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight: 900; font-size: 16px; margin-bottom: 8px;">Doctor AI Assistant</div>
+          <div id="aiChatBox" style="background: #F8FAFC; border-radius: 12px; padding: 10px; font-size: 13px; max-height: 120px; overflow-y: auto; margin-bottom: 10px;">
+            <p><strong>AI:</strong> Hello Ammu! Take Ketoconazole right after food for best results.</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="aiChatInput" placeholder="Ask a question..." style="flex: 1; border-radius: 10px; border: 1.5px solid var(--border); padding: 8px 12px; font-size: 13px; outline: none;">
+            <button class="btn btn-primary btn-sm" style="width: 50px;" onclick="sendAiChat()"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /screen-viewport -->
+
+    <!-- Floating Add Button -->
+    <button class="fab" onclick="openAddMedicineModal()">
+      <i class="fa-solid fa-plus"></i> Add Medicine
+    </button>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <div class="nav-item active" onclick="switchTab('home')">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('medicines')">
+        <i class="fa-solid fa-pills"></i>
+        <span>Medicines</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('hospital')">
+        <i class="fa-solid fa-hospital"></i>
+        <span>Hospital</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('journal')">
+        <i class="fa-solid fa-book-medical"></i>
+        <span>Journal</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('profile')">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+      </div>
+    </nav>
+
+    <!-- Modal Backdrop -->
+    <div id="modalBackdrop" class="modal-backdrop" onclick="closeModal()"></div>
+
+    <!-- Add Medicine Sheet -->
+    <div id="addMedSheet" class="modal-sheet">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="font-size: 18px; font-weight: 900;">Add New Medicine</h2>
+        <button class="icon-btn-round" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+          <label style="font-size: 13px; font-weight: 700;">Medicine Name *</label>
+          <input type="text" id="formMedName" placeholder="e.g. Ketoconazole 200mg" style="width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); outline: none; margin-top: 4px; font-size: 14px;">
+        </div>
+
+        <div>
+          <label style="font-size: 13px; font-weight: 700;">Form *</label>
+          <select id="formMedType" style="width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); outline: none; margin-top: 4px; font-size: 14px; background: white;">
+            <option>Tablet</option>
+            <option>Capsule</option>
+            <option>Syrup</option>
+            <option>Drops</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 13px; font-weight: 700;">Purpose *</label>
+          <input type="text" id="formMedPurpose" placeholder="e.g. Controls dandruff and itching" style="width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); outline: none; margin-top: 4px; font-size: 14px;">
+        </div>
+
+        <div>
+          <label style="font-size: 13px; font-weight: 700;">Food Timing *</label>
+          <div style="display: flex; gap: 8px; margin-top: 4px;">
+            <button class="btn btn-outline btn-sm" id="btnFoodAfter" onclick="selectFoodTiming(true)" style="background: var(--primary-green-light); border-color: var(--primary-green); color: var(--primary-green-dark); font-weight: 800;">🍲 After Food</button>
+            <button class="btn btn-outline btn-sm" id="btnFoodBefore" onclick="selectFoodTiming(false)">🍎 Before Food</button>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 13px; font-weight: 700;">Time *</label>
+          <input type="time" id="formMedTime" value="13:30" style="width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); outline: none; margin-top: 4px; font-size: 14px;">
+        </div>
+
+        <div>
+          <label style="font-size: 13px; font-weight: 700;">Tablets in Pack (Stock) *</label>
+          <input type="number" id="formMedStock" value="30" style="width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); outline: none; margin-top: 4px; font-size: 14px;">
+        </div>
+
+        <button class="btn btn-primary" onclick="submitAddMedicine()" style="margin-top: 10px;">
+          Save Medicine
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /device-shell -->
+
+  <!-- Desktop Quick Mode Switcher -->
+  <div class="desktop-controls">
+    <span>🌐 MediNest Preview</span>
+    <button onclick="toggleDeviceWidth()" style="padding: 4px 10px; border-radius: 8px; border: 1px solid #CBD5E1; background: #F8FAFC; cursor: pointer; font-weight: 700;">Toggle Frame Size</button>
+  </div>
+
+  <script>
+    // App State
+    let currentLang = 'en';
+    let afterFood = true;
+    let medicines = [
+      {
+        id: 'med_1',
+        name: 'Ketoconazole 200mg',
+        type: 'Tablet',
+        purpose: 'Controls dandruff and scalp fungal infection',
+        time: '01:30 PM',
+        afterFood: true,
+        stock: 8,
+        takenToday: false,
+        doctor: 'Dr. K. Ramesh'
+      },
+      {
+        id: 'med_2',
+        name: 'Cetirizine 10mg',
+        type: 'Tablet',
+        purpose: 'Relieves scalp itching & irritation',
+        time: '09:00 PM',
+        afterFood: true,
+        stock: 14,
+        takenToday: false,
+        doctor: 'Dr. K. Ramesh'
+      },
+      {
+        id: 'med_3',
+        name: 'Biotin Multivitamin',
+        type: 'Capsule',
+        purpose: 'Strengthens hair roots & growth',
+        time: '08:30 AM',
+        afterFood: true,
+        stock: 22,
+        takenToday: true,
+        doctor: 'Dr. K. Ramesh'
+      }
+    ];
+
+    let journalEntries = [
+      { date: 'Today, Sep 28', mood: '😊', itch: 'Mild', hair: 'Less', note: 'Scalp feels cooler after Ketoconazole.' },
+      { date: 'Yesterday, Sep 27', mood: '😊', itch: 'Mild', hair: 'Moderate', note: 'Applied lotion at night.' }
+    ];
+
+    // Language Translations
+    const translations = {
+      en: {
+        greeting: "Good Morning, Ammu 🌸",
+        tabletsToday: "Tablets Today",
+        taken: "Taken",
+        upcoming: "Upcoming",
+        voice: "Listen to Today's Medicines",
+        langCode: "EN"
+      },
+      te: {
+        greeting: "శుభోదయం, అమ్ము 🌸",
+        tabletsToday: "ఈ రోజు టాబ్లెట్లు",
+        taken: "వేసుకున్నవి",
+        upcoming: "రాబోయేవి",
+        voice: "ఈ రోజు మందులు వినండి",
+        langCode: "తెలుగు"
+      },
+      hi: {
+        greeting: "शुभ प्रभात, अम्मू 🌸",
+        tabletsToday: "आज की दवाएं",
+        taken: "ली गई",
+        upcoming: "आने वाली",
+        voice: "आज की दवाएं सुनें",
+        langCode: "हिंदी"
+      }
+    };
+
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('statusBarClock').innerText = `${h}:${m}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function renderMedicines() {
+      const container = document.getElementById('medicineCardsContainer');
+      const todayList = document.getElementById('todayScheduleList');
+      container.innerHTML = '';
+      todayList.innerHTML = '';
+
+      let takenCount = medicines.filter(m => m.takenToday).length;
+      let upcomingCount = medicines.length - takenCount;
+      document.getElementById('statTabletsToday').innerText = medicines.length;
+      document.getElementById('statTaken').innerText = takenCount;
+      document.getElementById('statUpcoming').innerText = upcomingCount;
+
+      let hasLowStock = medicines.some(m => m.stock <= 5);
+      document.getElementById('lowStockBanner').style.display = hasLowStock ? 'block' : 'none';
+
+      medicines.forEach((med, idx) => {
+        // Tracker cards
+        const card = document.createElement('div');
+        card.className = `card ${med.stock <= 5 ? 'warning-tint' : ''}`;
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <div style="width: 44px; height: 44px; border-radius: 12px; background: ${med.stock <= 5 ? 'var(--warning-light)' : 'var(--primary-green-light)'}; display: flex; align-items: center; justify-content: center; font-size: 22px; color: ${med.stock <= 5 ? 'var(--warning)' : 'var(--primary-green)'};">
+                <i class="fa-solid ${med.type === 'Capsule' ? 'fa-capsules' : 'fa-tablets'}"></i>
+              </div>
+              <div>
+                <div style="font-weight: 900; font-size: 17px;">${med.name}</div>
+                <div style="font-size: 12px; color: var(--text-secondary);">${med.type} • Daily</div>
+              </div>
+            </div>
+            <span style="font-size: 12px; font-weight: 800; background: ${med.stock <= 5 ? 'var(--danger-light)' : '#F1F5F9'}; color: ${med.stock <= 5 ? 'var(--danger)' : 'var(--text-primary)'}; padding: 4px 8px; border-radius: 8px;">
+              ${med.stock} Tabs Left
+            </span>
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;"><strong>Purpose:</strong> ${med.purpose}</div>
+          <div style="display: flex; gap: 6px; font-size: 12px; font-weight: 700; margin-bottom: 14px;">
+            <span style="background: var(--accent-blue-light); color: var(--accent-blue-dark); padding: 4px 8px; border-radius: 6px;">${med.time}</span>
+            <span style="background: ${med.afterFood ? 'var(--warning-light)' : 'var(--primary-green-light)'}; color: ${med.afterFood ? 'var(--warning)' : 'var(--primary-green-dark)'}; padding: 4px 8px; border-radius: 6px;">${med.afterFood ? 'After Food 🍲' : 'Before Food 🍎'}</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary btn-sm" onclick="takeMedicine(${idx})" style="flex: 2;">
+              <i class="fa-solid fa-check"></i> ${med.takenToday ? 'Taken ✓' : 'Take Now'}
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="refillMedicine(${idx})" style="flex: 1;" title="Add 10 Tablets">
+              +10 Refill
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+
+        // Home schedule list items
+        const row = document.createElement('div');
+        row.style.cssText = `background: ${med.takenToday ? 'var(--primary-green-light)' : 'white'}; padding: 12px 16px; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;`;
+        row.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <input type="checkbox" ${med.takenToday ? 'checked' : ''} onchange="toggleMedCheck(${idx}, this.checked)" style="width: 20px; height: 20px; accent-color: var(--primary-green);">
+            <div>
+              <div style="font-weight: 800; font-size: 15px; ${med.takenToday ? 'text-decoration: line-through; color: var(--text-secondary);' : ''}">${med.name}</div>
+              <div style="font-size: 12px; color: var(--text-secondary);">${med.time} • ${med.afterFood ? 'After Food' : 'Before Food'}</div>
+            </div>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: ${med.takenToday ? 'var(--primary-green-dark)' : 'var(--accent-blue)};">
+            ${med.takenToday ? 'Done ✓' : 'Pending'}
+          </span>
+        `;
+        todayList.appendChild(row);
+      });
+    }
+
+    function renderJournal() {
+      const list = document.getElementById('journalEntriesList');
+      list.innerHTML = '';
+      journalEntries.forEach(e => {
+        const item = document.createElement('div');
+        item.className = 'card';
+        item.style.padding = '14px';
+        item.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-weight: 800; font-size: 14px;">${e.date}</span>
+            <span style="font-size: 22px;">${e.mood}</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;">
+            Itching: <strong>${e.itch}</strong> • Hair Fall: <strong>${e.hair}</strong>
+          </div>
+          <div style="font-size: 13px; color: var(--text-primary); font-style: italic;">"${e.note}"</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      grid.innerHTML = '';
+      for (let i = 1; i <= 28; i++) {
+        let dotColor = '#4CAF50';
+        if (i === 12 || i === 19) dotColor = '#ED6C02';
+        if (i === 25) dotColor = '#D32F2F';
+        const day = document.createElement('div');
+        day.style.cssText = 'padding: 8px 4px; font-size: 13px; font-weight: 800; display: flex; flex-direction: column; align-items: center;';
+        day.innerHTML = `${i}<div style="width: 6px; height: 6px; border-radius: 50%; background: ${dotColor}; margin-top: 4px;"></div>`;
+        grid.appendChild(day);
+      }
+    }
+
+    // Switch Tabs
+    function switchTab(tabName) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+      const target = document.getElementById(`screen-${tabName}`);
+      if (target) target.classList.add('active');
+
+      const tabs = ['home', 'medicines', 'hospital', 'journal', 'profile'];
+      const idx = tabs.indexOf(tabName);
+      if (idx !== -1) {
+        document.querySelectorAll('.nav-item')[idx].classList.add('active');
+      }
+    }
+
+    // Voice Reading
+    function triggerVoiceReading() {
+      const icon = document.getElementById('voicePlayIcon');
+      icon.className = 'fa-solid fa-spinner fa-spin';
+
+      let text = "Hello Ammu. You have 3 tablets scheduled today. Ketoconazole is at 1:30 PM after lunch.";
+      if (currentLang === 'te') {
+        text = "హలో అమ్ము. ఈ రోజు మీకు మూడు టాబ్లెట్లు ఉన్నాయి. మధ్యాహ్నం భోజనం తర్వాత కెటోకోనజోల్ వేసుకోండి.";
+      } else if (currentLang === 'hi') {
+        text = "नमस्ते अम्मू. आज आपकी तीन दवाएं हैं. दोपहर के भोजन के बाद कीटोकोनाज़ोल लें.";
+      }
+
+      if ('speechSynthesis' in window) {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = currentLang === 'te' ? 'te-IN' : (currentLang === 'hi' ? 'hi-IN' : 'en-US');
+        u.onend = () => { icon.className = 'fa-solid fa-volume-high'; };
+        speechSynthesis.speak(u);
+      } else {
+        setTimeout(() => { icon.className = 'fa-solid fa-volume-high'; alert(text); }, 600);
+      }
+    }
+
+    // Cycle Language
+    function cycleLanguage() {
+      if (currentLang === 'en') currentLang = 'te';
+      else if (currentLang === 'te') currentLang = 'hi';
+      else currentLang = 'en';
+
+      const t = translations[currentLang];
+      document.getElementById('currentLangLabel').innerText = t.langCode;
+      document.getElementById('txtGreeting').innerText = t.greeting;
+      document.getElementById('lblTabletsToday').innerText = t.tabletsToday;
+      document.getElementById('lblTaken').innerText = t.taken;
+      document.getElementById('lblUpcoming').innerText = t.upcoming;
+      document.getElementById('txtVoiceLabel').innerText = t.voice;
+    }
+
+    // Notification Simulator
+    function triggerNotificationSim() {
+      const shade = document.getElementById('notificationShade');
+      shade.classList.add('show');
+    }
+    function dismissNotification(isTaken) {
+      document.getElementById('notificationShade').classList.remove('show');
+      if (isTaken) {
+        medicines[0].takenToday = true;
+        medicines[0].stock = Math.max(0, medicines[0].stock - 1);
+        renderMedicines();
+        alert('✓ Marked dose as Taken! Stock updated.');
+      } else {
+        alert('⏱ Snoozed for 10 minutes. Escalating reminder active.');
+      }
+    }
+
+    function markNextDoseTaken() {
+      medicines[0].takenToday = true;
+      medicines[0].stock = Math.max(0, medicines[0].stock - 1);
+      renderMedicines();
+      alert('✓ Ketoconazole 200mg marked as Taken! Remaining stock updated.');
+    }
+
+    function takeMedicine(idx) {
+      medicines[idx].takenToday = !medicines[idx].takenToday;
+      if (medicines[idx].takenToday) {
+        medicines[idx].stock = Math.max(0, medicines[idx].stock - 1);
+      }
+      renderMedicines();
+    }
+
+    function refillMedicine(idx) {
+      medicines[idx].stock += 10;
+      renderMedicines();
+      alert(`✓ Refilled ${medicines[idx].name} with +10 tablets!`);
+    }
+
+    function toggleMedCheck(idx, checked) {
+      medicines[idx].takenToday = checked;
+      renderMedicines();
+    }
+
+    function markHospitalCompleted() {
+      alert('✓ Check-up marked completed! Next appointment automatically scheduled for November 28.');
+      document.getElementById('hospitalCountdownDays').innerText = '30 Days Left';
+      document.getElementById('hospitalVisitDate').innerText = 'November 28, 2026 at 10:30 AM';
+    }
+
+    function rescheduleHospital() {
+      const newDate = prompt('Enter new date (e.g. November 05, 2026):', 'November 05, 2026');
+      if (newDate) {
+        document.getElementById('hospitalVisitDate').innerText = newDate + ' at 10:30 AM';
+        alert('✓ Check-up rescheduled!');
+      }
+    }
+
+    function callPhone(num) {
+      window.location.href = `tel:${num}`;
+    }
+
+    function openMap(query) {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`, '_blank');
+    }
+
+    // Modal
+    function openAddMedicineModal() {
+      document.getElementById('modalBackdrop').classList.add('show');
+      document.getElementById('addMedSheet').classList.add('open');
+    }
+    function closeModal() {
+      document.getElementById('modalBackdrop').classList.remove('show');
+      document.getElementById('addMedSheet').classList.remove('open');
+    }
+    function selectFoodTiming(isAfter) {
+      afterFood = isAfter;
+      document.getElementById('btnFoodAfter').style.background = isAfter ? 'var(--primary-green-light)' : 'white';
+      document.getElementById('btnFoodAfter').style.borderColor = isAfter ? 'var(--primary-green)' : 'var(--border)';
+      document.getElementById('btnFoodBefore').style.background = !isAfter ? 'var(--primary-green-light)' : 'white';
+      document.getElementById('btnFoodBefore').style.borderColor = !isAfter ? 'var(--primary-green)' : 'var(--border)';
+    }
+
+    function submitAddMedicine() {
+      const name = document.getElementById('formMedName').value.trim();
+      const type = document.getElementById('formMedType').value;
+      const purpose = document.getElementById('formMedPurpose').value.trim();
+      const time = document.getElementById('formMedTime').value;
+      const stock = parseInt(document.getElementById('formMedStock').value) || 30;
+
+      if (!name) { alert('Please enter medicine name'); return; }
+
+      medicines.push({
+        id: 'med_' + Date.now(),
+        name,
+        type,
+        purpose: purpose || 'Health maintenance',
+        time: time || '08:00 AM',
+        afterFood,
+        stock,
+        takenToday: false,
+        doctor: 'Dr. K. Ramesh'
+      });
+
+      renderMedicines();
+      closeModal();
+      alert(`✓ Saved ${name} successfully!`);
+    }
+
+    function setMood(el, mood) {
+      document.querySelectorAll('.mood-box').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function setItch(el, val) {
+      el.parentElement.querySelectorAll('.chip-select').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function setHair(el, val) {
+      el.parentElement.querySelectorAll('.chip-select').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function saveJournalEntry() {
+      const note = document.getElementById('journalNoteInput').value.trim() || 'Dose taken on schedule.';
+      journalEntries.unshift({
+        date: 'Today, Sep 28',
+        mood: '😊',
+        itch: 'Mild',
+        hair: 'Less',
+        note
+      });
+      document.getElementById('journalNoteInput').value = '';
+      renderJournal();
+      alert('✓ Today health diary saved!');
+    }
+
+    function sendAiChat() {
+      const input = document.getElementById('aiChatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const box = document.getElementById('aiChatBox');
+      box.innerHTML += `<p style="margin-top: 6px; color: var(--accent-blue-dark); text-align: right;"><strong>You:</strong> ${text}</p>`;
+      input.value = '';
+
+      setTimeout(() => {
+        box.innerHTML += `<p style="margin-top: 6px;"><strong>AI:</strong> Based on your prescription from Dr. K. Ramesh, continue Ketoconazole and keep drinking water.</p>`;
+        box.scrollTop = box.scrollHeight;
+      }, 500);
+    }
+
+    function toggleLargeText(isChecked) {
+      if (isChecked) document.body.classList.add('large-text-mode');
+      else document.body.classList.remove('large-text-mode');
+    }
+
+    function toggleDeviceWidth() {
+      const shell = document.querySelector('.device-shell');
+      if (shell.style.maxWidth === '100%') {
+        shell.style.maxWidth = '440px';
+        shell.style.borderRadius = '44px';
+      } else {
+        shell.style.maxWidth = '100%';
+        shell.style.borderRadius = '0';
+      }
+    }
+
+    // Initial render
+    renderMedicines();
+    renderJournal();
+    renderCalendar();
+  </script>
+</body>
+</html>
