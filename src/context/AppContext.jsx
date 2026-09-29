@@ -88,14 +88,22 @@ export const AppProvider = ({ children }) => {
   // 7. Settings & Accessibility
   const [settings, setSettings] = useState(() => {
     const saved = localStorage.getItem('medinest_settings_v3');
-    if (saved) return JSON.parse(saved);
-    return {
+    const base = {
       language: 'en',
       largeText: false,
       highContrast: false,
       sound: true,
-      snoozeMinutes: 10
+      snoozeMinutes: 10,
+      glassTheme: 'crystal', // 'crystal' | 'vibrant' | 'midnight'
+      glassMode: true
     };
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return { ...base, ...parsed };
+      } catch (_) {}
+    }
+    return base;
   });
 
   // Sync to LocalStorage
@@ -129,6 +137,15 @@ export const AppProvider = ({ children }) => {
       document.body.classList.add('large-font');
     } else {
       document.body.classList.remove('large-font');
+    }
+
+    const root = document.documentElement;
+    root.classList.remove('glass-crystal', 'glass-vibrant', 'glass-midnight', 'glass-off');
+    if (settings.glassMode !== false) {
+      root.classList.add('glass-mode');
+      root.classList.add(`glass-${settings.glassTheme || 'crystal'}`);
+    } else {
+      root.classList.add('glass-off');
     }
   }, [settings]);
 
@@ -261,6 +278,14 @@ export const AppProvider = ({ children }) => {
     setSettings(prev => ({ ...prev, largeText: !prev.largeText }));
   };
 
+  const setGlassTheme = (theme) => {
+    setSettings(prev => ({ ...prev, glassTheme: theme, glassMode: true }));
+  };
+
+  const toggleGlassMode = () => {
+    setSettings(prev => ({ ...prev, glassMode: !prev.glassMode }));
+  };
+
   const updateUserName = (name) => {
     setEmergencyProfile(prev => ({ ...prev, userName: name }));
   };
@@ -364,6 +389,8 @@ export const AppProvider = ({ children }) => {
         settings,
         setLanguage,
         toggleLargeText,
+        setGlassTheme,
+        toggleGlassMode,
         resetToDemo,
         t,
         nextMedicine,

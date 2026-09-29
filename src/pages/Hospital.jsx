@@ -48,15 +48,20 @@ export const Hospital = () => {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-8 animate-fadeIn pb-16">
+    <div className="space-y-6 sm:space-y-8 animate-fadeIn pb-24">
       {/* Title */}
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-          Monthly Hospital Tracker
-        </h1>
-        <p className="text-sm font-semibold text-slate-500 mt-1">
-          Automated monthly visit reminder and hospital navigation.
-        </p>
+      <div className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/90 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-500 to-indigo-500 text-white flex items-center justify-center shadow-md shadow-blue-500/25">
+              <Calendar className="w-5 h-5 stroke-[2.5]" />
+            </div>
+            <span>Monthly Hospital Tracker</span>
+          </h1>
+          <p className="text-sm font-bold text-slate-500 mt-1">
+            Automated monthly visit reminder and hospital navigation.
+          </p>
+        </div>
       </div>
 
       {/* Main Appointment Highlight Card */}
@@ -229,7 +234,7 @@ export const Hospital = () => {
                   value={newDate}
                   onChange={(e) => setNewDate(e.target.value)}
                   required
-                  className="w-full bg-white/80 border border-slate-200 rounded-xl p-3 font-bold text-sm outline-none focus:border-blue-500"
+                  className="glass-input w-full rounded-xl p-3 font-bold text-sm outline-none cursor-pointer"
                 />
               </div>
               <div className="flex gap-3 pt-2">

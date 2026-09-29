@@ -253,17 +253,17 @@ export const Home = () => {
             </div>
             <div className="space-y-2">
               {restDayMedicines.map((med) => (
-                <div key={med.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between opacity-80">
+                <div key={med.id} className="glass-card p-3.5 rounded-2xl border border-white/80 flex items-center justify-between opacity-85">
                   <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-xs">
+                    <span className="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-xs border border-purple-200">
                       OFF
                     </span>
                     <div>
-                      <div className="font-extrabold text-sm text-slate-700">{med.name}</div>
-                      <div className="text-xs text-slate-400 font-medium">Alternate Day • No dose needed today</div>
+                      <div className="font-extrabold text-sm text-slate-800">{med.name}</div>
+                      <div className="text-xs text-slate-500 font-bold">Alternate Day • No dose needed today</div>
                     </div>
                   </div>
-                  <span className="text-xs font-bold text-slate-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg">
+                  <span className="glass-pill text-xs font-bold text-slate-600 px-3 py-1 rounded-xl">
                     Next: Tomorrow ({med.time})
                   </span>
                 </div>

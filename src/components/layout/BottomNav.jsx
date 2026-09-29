@@ -15,7 +15,7 @@ export const BottomNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 bg-white/80 backdrop-blur-xl border-t border-white/80 py-2 px-3 flex justify-around items-center lg:hidden shadow-[0_-4px_24px_rgba(15,23,42,0.06)] no-print">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 bg-white/70 backdrop-blur-2xl border-t border-white/80 py-2.5 px-3 flex justify-around items-center lg:hidden shadow-[0_-8px_32px_rgba(15,23,42,0.08)] no-print">
       {items.map((item) => {
         const Icon = item.icon;
         return (
@@ -23,9 +23,9 @@ export const BottomNav = () => {
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl btn-reactive ${
+              `flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl btn-reactive transition-all ${
                 isActive
-                  ? 'text-emerald-950 font-black bg-emerald-500/15 border border-emerald-300/80 shadow-sm'
+                  ? 'text-emerald-950 font-black bg-gradient-to-r from-emerald-500/20 to-teal-500/15 border border-emerald-300/90 shadow-sm backdrop-blur-md'
                   : 'text-slate-600 font-bold hover:text-slate-900 hover:bg-white/60'
               }`
             }

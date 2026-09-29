@@ -361,7 +361,7 @@ export const AddMedicine = () => {
                       onChange={(e) => handleMultipleChange(index, 'name', e.target.value)}
                       placeholder="e.g. Paracetamol, Metformin, Pantocid"
                       required
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-900 outline-none focus:border-emerald-500 focus:bg-white"
+                      className="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-900 outline-none"
                     />
                   </div>
 
@@ -375,7 +375,7 @@ export const AddMedicine = () => {
                       value={med.dosage}
                       onChange={(e) => handleMultipleChange(index, 'dosage', e.target.value)}
                       placeholder="e.g. 500mg, 10mg, 1 tab"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-800 outline-none focus:border-emerald-500 focus:bg-white"
+                      className="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-800 outline-none"
                     />
                   </div>
 
@@ -387,7 +387,7 @@ export const AddMedicine = () => {
                     <select
                       value={med.type}
                       onChange={(e) => handleMultipleChange(index, 'type', e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 outline-none focus:border-emerald-500 cursor-pointer"
+                      className="glass-input w-full rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 outline-none cursor-pointer"
                     >
                       <option value="Tablet">Tablet 💊</option>
                       <option value="Capsule">Capsule 💊</option>
@@ -410,7 +410,7 @@ export const AddMedicine = () => {
                       onChange={(e) => handleMultipleChange(index, 'time', e.target.value)}
                       placeholder="08:00 AM"
                       required
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 outline-none focus:border-blue-500"
+                      className="glass-input w-full rounded-xl px-3 py-2.5 text-xs font-bold text-slate-800 outline-none"
                     />
                     <div className="flex gap-1 mt-1 flex-wrap">
                       {['08:00 AM', '01:30 PM', '09:00 PM'].map((tVal) => (
@@ -418,7 +418,7 @@ export const AddMedicine = () => {
                           key={tVal}
                           type="button"
                           onClick={() => handleMultipleChange(index, 'time', tVal)}
-                          className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-600 cursor-pointer"
+                          className="btn-reactive text-[10px] font-bold px-1.5 py-0.5 rounded bg-white/80 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 cursor-pointer border border-white/80"
                         >
                           {tVal}
                         </button>
@@ -435,7 +435,7 @@ export const AddMedicine = () => {
                     <select
                       value={med.repeat}
                       onChange={(e) => handleMultipleChange(index, 'repeat', e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-black text-slate-800 outline-none focus:border-emerald-500 cursor-pointer"
+                      className="glass-input w-full rounded-xl px-3 py-2.5 text-xs font-black text-slate-800 outline-none cursor-pointer"
                     >
                       <option value="Daily">Daily (Every Day)</option>
                       <option value="Alternate Days">🔄 Alternate Days (Every 2nd Day)</option>
@@ -572,7 +572,7 @@ export const AddMedicine = () => {
                   onChange={handleChange}
                   placeholder="Enter medicine name (e.g. Paracetamol, Metformin, Thyronorm)"
                   required
-                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl px-4 py-3 text-base font-bold text-slate-900 outline-none focus:border-emerald-500 focus:bg-white transition-colors"
+                  className="glass-input w-full rounded-2xl px-4 py-3 text-base font-bold text-slate-900 outline-none"
                 />
               </div>
 
@@ -588,7 +588,7 @@ export const AddMedicine = () => {
                   onChange={handleChange}
                   placeholder="e.g. 500mg, 10mg, 5ml"
                   required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-emerald-500 focus:bg-white"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none"
                 />
                 <div className="flex gap-1.5 mt-2 flex-wrap">
                   {['500mg', '250mg', '100mg', '10mg', '1 tablet', '5ml'].map((d) => (
@@ -596,7 +596,7 @@ export const AddMedicine = () => {
                       key={d}
                       type="button"
                       onClick={() => setFormData({ ...formData, dosage: d })}
-                      className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 transition-colors cursor-pointer"
+                      className="btn-reactive text-[11px] font-bold px-2 py-0.5 rounded-md glass-card hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 cursor-pointer"
                     >
                       +{d}
                     </button>
@@ -613,7 +613,7 @@ export const AddMedicine = () => {
                   name="type"
                   value={formData.type}
                   onChange={handleChange}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-emerald-500 cursor-pointer"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none cursor-pointer"
                 >
                   <option value="Tablet">Tablet 💊</option>
                   <option value="Capsule">Capsule 💊</option>
@@ -638,7 +638,7 @@ export const AddMedicine = () => {
                   placeholder="30"
                   min="0"
                   required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-emerald-500 focus:bg-white"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none"
                 />
               </div>
 
@@ -653,7 +653,7 @@ export const AddMedicine = () => {
                   value={formData.purpose}
                   onChange={handleChange}
                   placeholder="e.g. For fever, blood pressure, allergy, thyroid"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-emerald-500 focus:bg-white"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none"
                 />
               </div>
 
@@ -746,7 +746,7 @@ export const AddMedicine = () => {
                   onChange={handleChange}
                   placeholder="e.g. 08:00 AM, 01:30 PM, 09:00 PM"
                   required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-blue-500 focus:bg-white"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none"
                 />
                 <div className="flex gap-1.5 mt-2 flex-wrap">
                   {[
@@ -759,7 +759,7 @@ export const AddMedicine = () => {
                       key={preset.label}
                       type="button"
                       onClick={() => setFormData({ ...formData, time: preset.t })}
-                      className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-600 transition-colors cursor-pointer"
+                      className="btn-reactive text-[11px] font-bold px-2 py-0.5 rounded-md glass-card hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 transition-colors cursor-pointer"
                     >
                       {preset.label} ({preset.t})
                     </button>
@@ -777,7 +777,7 @@ export const AddMedicine = () => {
                   name="repeat"
                   value={formData.repeat}
                   onChange={handleChange}
-                  className="w-full bg-slate-50 border-2 border-emerald-500 rounded-xl px-4 py-3 text-sm font-black text-slate-800 outline-none cursor-pointer"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-black text-slate-800 outline-none cursor-pointer"
                 >
                   <option value="Daily">Daily (Every Day)</option>
                   <option value="Alternate Days">🔄 Alternate Days (Every Other Day • 1 Day On, 1 Day Off)</option>
@@ -788,7 +788,7 @@ export const AddMedicine = () => {
                 </select>
 
                 {formData.repeat === 'Alternate Days' && (
-                  <div className="mt-2 p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-xs text-emerald-900 font-semibold leading-relaxed">
+                  <div className="mt-2 p-3 bg-emerald-50/80 border border-emerald-300 rounded-xl text-xs text-emerald-900 font-semibold leading-relaxed backdrop-blur-sm">
                     <strong>🔄 Alternate Days Enabled:</strong> The app will automatically schedule this medicine every 2nd day starting from today. On off-days, it marks a rest day so you are not reminded incorrectly!
                   </div>
                 )}
@@ -803,10 +803,10 @@ export const AddMedicine = () => {
                   <button
                     type="button"
                     onClick={() => handleFoodTiming(true)}
-                    className={`py-3.5 px-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all border-2 cursor-pointer ${
+                    className={`btn-reactive py-3.5 px-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       formData.afterFood
-                        ? 'bg-amber-50 text-amber-900 border-amber-400 shadow-sm font-black'
-                        : 'bg-slate-50 text-slate-600 border-slate-200'
+                        ? 'bg-amber-100/90 text-amber-950 border-2 border-amber-400 shadow-sm font-black'
+                        : 'glass-card text-slate-600 border-white/80'
                     }`}
                   >
                     <Utensils className="w-4 h-4 text-amber-600" />
@@ -816,10 +816,10 @@ export const AddMedicine = () => {
                   <button
                     type="button"
                     onClick={() => handleFoodTiming(false)}
-                    className={`py-3.5 px-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all border-2 cursor-pointer ${
+                    className={`btn-reactive py-3.5 px-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       formData.beforeFood
-                        ? 'bg-emerald-50 text-emerald-900 border-emerald-400 shadow-sm font-black'
-                        : 'bg-slate-50 text-slate-600 border-slate-200'
+                        ? 'bg-emerald-100/90 text-emerald-950 border-2 border-emerald-400 shadow-sm font-black'
+                        : 'glass-card text-slate-600 border-white/80'
                     }`}
                   >
                     <Utensils className="w-4 h-4 text-emerald-600" />
@@ -831,8 +831,8 @@ export const AddMedicine = () => {
           </div>
 
           {/* Section 3: Prescribed By (Optional) */}
-          <div className="pt-4 border-t border-slate-100">
-            <h3 className="text-base font-extrabold text-purple-700 flex items-center gap-2 mb-4">
+          <div className="pt-4 border-t border-slate-200/50">
+            <h3 className="text-base font-extrabold text-purple-800 flex items-center gap-2 mb-4">
               <Building2 className="w-5 h-5 text-purple-600" />
               <span>3. Doctor & Clinic Details (Optional)</span>
             </h3>
@@ -848,7 +848,7 @@ export const AddMedicine = () => {
                   value={formData.doctorName}
                   onChange={handleChange}
                   placeholder="Doctor name (e.g. Dr. Sharma)"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-purple-500"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none"
                 />
               </div>
 
@@ -862,7 +862,7 @@ export const AddMedicine = () => {
                   value={formData.doctorNumber}
                   onChange={handleChange}
                   placeholder="Phone number"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-purple-500"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none"
                 />
               </div>
 
@@ -876,7 +876,7 @@ export const AddMedicine = () => {
                   onChange={handleChange}
                   rows={2}
                   placeholder="e.g. Take with warm water. Avoid dairy products."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 outline-none focus:border-purple-500"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-medium text-slate-800 outline-none"
                 />
               </div>
             </div>

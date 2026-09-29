@@ -125,57 +125,57 @@ export const Emergency = () => {
 
       {/* Edit Form Modal/Section */}
       {isEditing && (
-        <form onSubmit={handleSave} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
-          <h2 className="text-lg font-black text-slate-900 border-b border-slate-100 pb-3">Edit Emergency Details</h2>
+        <form onSubmit={handleSave} className="glass-panel rounded-3xl border border-white/90 p-6 sm:p-8 shadow-sm space-y-5 animate-scaleUp">
+          <h2 className="text-lg font-black text-slate-900 border-b border-slate-200/50 pb-3">Edit Emergency Details</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-extrabold text-slate-600 uppercase mb-1">User Full Name</label>
+              <label className="block text-xs font-black text-slate-700 uppercase mb-1">User Full Name</label>
               <input
                 type="text"
                 value={formData.userName}
                 onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-sm"
+                className="glass-input w-full px-4 py-2.5 rounded-xl font-bold text-sm outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-extrabold text-slate-600 uppercase mb-1">Blood Group</label>
+              <label className="block text-xs font-black text-slate-700 uppercase mb-1">Blood Group</label>
               <input
                 type="text"
                 value={formData.bloodGroup}
                 onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-sm"
+                className="glass-input w-full px-4 py-2.5 rounded-xl font-bold text-sm outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-extrabold text-slate-600 uppercase mb-1">Emergency Contact Person</label>
+              <label className="block text-xs font-black text-slate-700 uppercase mb-1">Emergency Contact Person</label>
               <input
                 type="text"
                 value={formData.emergencyContactName}
                 onChange={(e) => setFormData({ ...formData, emergencyContactName: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-sm"
+                className="glass-input w-full px-4 py-2.5 rounded-xl font-bold text-sm outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-extrabold text-slate-600 uppercase mb-1">Emergency Contact Phone</label>
+              <label className="block text-xs font-black text-slate-700 uppercase mb-1">Emergency Contact Phone</label>
               <input
                 type="tel"
                 value={formData.emergencyContactPhone}
                 onChange={(e) => setFormData({ ...formData, emergencyContactPhone: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-sm"
+                className="glass-input w-full px-4 py-2.5 rounded-xl font-bold text-sm outline-none"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-extrabold text-slate-600 uppercase mb-1">Known Allergies</label>
+              <label className="block text-xs font-black text-slate-700 uppercase mb-1">Known Allergies</label>
               <input
                 type="text"
                 value={formData.allergies}
                 onChange={(e) => setFormData({ ...formData, allergies: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-sm"
+                className="glass-input w-full px-4 py-2.5 rounded-xl font-bold text-sm outline-none"
               />
             </div>
           </div>

@@ -30,7 +30,7 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-white/70 backdrop-blur-xl border-r border-white/80 hidden lg:flex flex-col justify-between py-6 px-4 shrink-0 no-print shadow-[4px_0_24px_-4px_rgba(15,23,42,0.02)]">
+    <aside className="w-64 bg-white/65 backdrop-blur-2xl border-r border-white/75 hidden lg:flex flex-col justify-between py-6 px-4 shrink-0 no-print shadow-[4px_0_30px_-4px_rgba(15,23,42,0.03)] my-2 ml-2 rounded-3xl border">
       <div className="space-y-6">
         {/* Navigation list */}
         <nav className="space-y-1.5">
@@ -41,10 +41,10 @@ export const Sidebar = () => {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `flex items-center gap-3.5 px-4 py-3 rounded-2xl font-black text-sm btn-reactive ${
+                  `flex items-center gap-3.5 px-4 py-3 rounded-2xl font-black text-sm btn-reactive transition-all ${
                     isActive
-                      ? 'bg-gradient-to-r from-emerald-500/15 to-teal-500/10 text-emerald-950 border border-emerald-300/80 shadow-sm font-black'
-                      : 'text-slate-600 hover:bg-white/80 hover:text-slate-900 border border-transparent hover:border-slate-200/60'
+                      ? 'bg-gradient-to-r from-emerald-500/20 to-teal-500/15 text-emerald-950 border border-emerald-300/90 shadow-md shadow-emerald-500/10 font-black backdrop-blur-md'
+                      : 'text-slate-600 hover:bg-white/70 hover:text-slate-900 border border-transparent hover:border-white/80'
                   }`
                 }
               >

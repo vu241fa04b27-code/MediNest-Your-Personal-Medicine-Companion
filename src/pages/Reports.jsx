@@ -94,23 +94,25 @@ export const Reports = () => {
   });
 
   return (
-    <div className="space-y-6 pb-24">
+    <div className="space-y-6 pb-24 animate-fadeIn">
       {/* Top Header Actions (Hidden in Print) */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print">
+      <div className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/90 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 flex items-center gap-2.5">
-            <FileText className="w-8 h-8 text-emerald-600" />
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center shadow-md shadow-emerald-500/25">
+              <FileText className="w-5 h-5 stroke-[2.5]" />
+            </div>
             <span>Clinical Reports & Prescriptions</span>
           </h1>
-          <p className="text-slate-500 font-medium text-sm mt-1">
+          <p className="text-slate-500 font-bold text-sm mt-1">
             Store clinical lab reports, doctor slips, and medicine photos for physical printout or PDF export.
           </p>
         </div>
 
-        <div className="flex items-center gap-3 self-start sm:self-center">
+        <div className="flex items-center gap-2.5 self-start sm:self-center">
           <button
             onClick={() => setModalOpen(true)}
-            className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+            className="btn-reactive btn-glow-emerald flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer border border-white/20"
           >
             <Camera className="w-4 h-4" />
             <span>+ Add Report Photo</span>
@@ -118,7 +120,7 @@ export const Reports = () => {
 
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-extrabold text-sm shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+            className="btn-reactive btn-glow-blue flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-500 hover:from-blue-500 hover:to-indigo-400 text-white font-black text-sm shadow-md shadow-blue-500/20 transition-all cursor-pointer border border-white/20"
           >
             <Printer className="w-4 h-4" />
             <span>Print / PDF</span>
@@ -127,7 +129,7 @@ export const Reports = () => {
       </div>
 
       {/* Main Clinical Summary Sheet (Printed) */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-8 print:p-0 print:border-none print:shadow-none">
+      <div className="glass-panel rounded-3xl border border-white/90 p-6 sm:p-10 shadow-sm space-y-8 print:p-0 print:border-none print:shadow-none print:bg-white">
         {/* Document Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-900 pb-6 gap-4">
           <div>
@@ -149,25 +151,25 @@ export const Reports = () => {
         </div>
 
         {/* Patient Profile Demographics */}
-        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 print:bg-slate-50">
+        <div className="glass-card rounded-2xl p-5 border border-white/90 grid grid-cols-2 sm:grid-cols-4 gap-4 print:bg-slate-50">
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Patient Name</span>
-            <span className="font-extrabold text-slate-900 text-base">{emergencyProfile.userName || 'Patient'}</span>
+            <span className="text-[11px] font-black text-slate-500 uppercase tracking-wider block">Patient Name</span>
+            <span className="font-black text-slate-900 text-base">{emergencyProfile.userName || 'Patient'}</span>
           </div>
 
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Blood Group</span>
-            <span className="font-extrabold text-red-600 text-base">{emergencyProfile.bloodGroup || 'Not Specified'}</span>
+            <span className="text-[11px] font-black text-slate-500 uppercase tracking-wider block">Blood Group</span>
+            <span className="font-black text-red-600 text-base">{emergencyProfile.bloodGroup || 'Not Specified'}</span>
           </div>
 
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Active Medications</span>
-            <span className="font-extrabold text-emerald-700 text-base">{medicines.length} Prescriptions</span>
+            <span className="text-[11px] font-black text-slate-500 uppercase tracking-wider block">Active Medications</span>
+            <span className="font-black text-emerald-800 text-base">{medicines.length} Prescriptions</span>
           </div>
 
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Consulting Doctor</span>
-            <span className="font-extrabold text-slate-900 text-base">{activeAppointment?.doctorName || emergencyProfile.doctorName || 'Not Assigned'}</span>
+            <span className="text-[11px] font-black text-slate-500 uppercase tracking-wider block">Consulting Doctor</span>
+            <span className="font-black text-slate-900 text-base">{activeAppointment?.doctorName || emergencyProfile.doctorName || 'Not Assigned'}</span>
           </div>
         </div>
 
@@ -276,19 +278,19 @@ export const Reports = () => {
           </div>
 
           {clinicalReports.length === 0 ? (
-            <div className="p-8 text-center bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl space-y-2">
-              <Camera className="w-8 h-8 text-slate-300 mx-auto" />
-              <p className="text-slate-600 font-bold text-sm">No report photos attached yet.</p>
-              <p className="text-xs text-slate-400">Click "+ Add Report Photo" above to upload doctor prescription slips or lab reports.</p>
+            <div className="p-8 text-center glass-panel border border-dashed border-emerald-300 rounded-3xl space-y-2">
+              <Camera className="w-8 h-8 text-emerald-600/60 mx-auto" />
+              <p className="text-slate-800 font-black text-sm">No report photos attached yet.</p>
+              <p className="text-xs text-slate-500 font-bold">Click "+ Add Report Photo" above to upload doctor prescription slips or lab reports.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {clinicalReports.map((report) => (
                 <div 
                   key={report.id}
-                  className="bg-white rounded-2xl border-2 border-slate-200 p-3 shadow-sm hover:border-blue-400 transition-all flex flex-col justify-between"
+                  className="glass-card rounded-3xl border border-white/90 p-4 shadow-sm hover:border-emerald-300 transition-all flex flex-col justify-between"
                 >
-                  <div className="relative rounded-xl overflow-hidden bg-slate-100 h-44 mb-3 border border-slate-200 group">
+                  <div className="relative rounded-2xl overflow-hidden bg-slate-900/10 h-44 mb-3 border border-white/80 group">
                     <img
                       src={report.photo}
                       alt={report.title}
@@ -298,7 +300,7 @@ export const Reports = () => {
                       onClick={() => setSelectedPhoto({ src: report.photo, title: report.title, date: report.date })}
                       className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white cursor-pointer transition-opacity"
                     >
-                      <span className="flex items-center gap-1.5 font-bold text-xs bg-black/60 px-3 py-1.5 rounded-full">
+                      <span className="flex items-center gap-1.5 font-bold text-xs bg-black/60 px-3.5 py-1.5 rounded-full backdrop-blur-md">
                         <Eye className="w-4 h-4" /> View Full
                       </span>
                     </div>
@@ -307,17 +309,17 @@ export const Reports = () => {
                   <div>
                     <div className="flex items-center justify-between">
                       <h4 className="font-black text-slate-900 text-sm truncate">{report.title}</h4>
-                      <span className="text-[11px] font-bold text-slate-400 shrink-0">{report.date}</span>
+                      <span className="text-[11px] font-bold text-slate-500 shrink-0">{report.date}</span>
                     </div>
                     {report.notes && (
-                      <p className="text-xs text-slate-600 mt-1 line-clamp-2">{report.notes}</p>
+                      <p className="text-xs text-slate-600 mt-1 line-clamp-2 font-medium">{report.notes}</p>
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 mt-2 border-t border-slate-100 no-print">
+                  <div className="flex items-center justify-between pt-3 mt-2 border-t border-slate-200/50 no-print">
                     <button
                       onClick={() => setSelectedPhoto({ src: report.photo, title: report.title, date: report.date })}
-                      className="text-xs font-black text-blue-600 hover:text-blue-700 flex items-center gap-1 cursor-pointer"
+                      className="text-xs font-black text-emerald-700 hover:text-emerald-800 flex items-center gap-1 cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5" />
                       <span>Inspect</span>
@@ -370,12 +372,12 @@ export const Reports = () => {
 
       {/* Modal: Upload Clinical Report Photo */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 glass-modal-backdrop flex items-center justify-center p-4">
           <form 
             onSubmit={handleAddReport}
-            className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl relative animate-scaleIn"
+            className="glass-panel rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl relative animate-scaleUp border border-white/95"
           >
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="flex items-center justify-between border-b border-slate-200/50 pb-3">
               <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
                 <Camera className="w-5 h-5 text-emerald-600" />
                 <span>Upload Clinical Report Photo</span>
@@ -400,7 +402,7 @@ export const Reports = () => {
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="e.g. CBC Blood Test, Doctor Prescription, Scalp Scan"
                   required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-emerald-500"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none"
                 />
               </div>
 
@@ -413,7 +415,7 @@ export const Reports = () => {
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                   required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 outline-none focus:border-emerald-500 cursor-pointer"
+                  className="glass-input w-full rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none cursor-pointer"
                 />
               </div>
 
@@ -424,7 +426,7 @@ export const Reports = () => {
                 </label>
 
                 {formData.photo ? (
-                  <div className="relative rounded-2xl overflow-hidden border-2 border-emerald-300 p-2 bg-emerald-50/50 flex items-center justify-between">
+                  <div className="relative rounded-2xl overflow-hidden border-2 border-emerald-300 p-2.5 bg-emerald-50/70 backdrop-blur-md flex items-center justify-between">
                     <img
                       src={formData.photo}
                       alt="Report preview"
@@ -452,15 +454,15 @@ export const Reports = () => {
                     </button>
                   </div>
                 ) : (
-                  <label className="border-2 border-dashed border-slate-300 hover:border-emerald-500 hover:bg-emerald-50/40 rounded-2xl p-5 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors bg-slate-50">
-                    <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                  <label className="border-2 border-dashed border-emerald-400/70 hover:border-emerald-500 hover:bg-emerald-50/50 rounded-2xl p-5 flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors glass-card">
+                    <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shadow-xs">
                       <Camera className="w-5 h-5" />
                     </div>
                     <div className="text-center">
                       <span className="text-xs font-black text-slate-800 block">
                         {photoUploading ? 'Compressing photo...' : 'Take Photo or Choose File'}
                       </span>
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[11px] text-slate-400 font-bold">
                         Supports Camera capture, JPG, PNG
                       </span>
                     </div>
@@ -484,23 +486,23 @@ export const Reports = () => {
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   rows={2}
                   placeholder="e.g. Hemoglobin normal, prescribed vitamin supplements."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-medium text-slate-800 outline-none focus:border-emerald-500"
+                  className="glass-input w-full rounded-xl px-4 py-2.5 text-xs font-bold text-slate-800 outline-none"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-200/50">
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm cursor-pointer"
+                className="btn-reactive glass-btn-white px-5 py-2.5 rounded-xl text-slate-800 font-black text-sm cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={photoUploading}
-                className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
+                className="btn-reactive btn-glow-emerald px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black text-sm shadow-md transition-all cursor-pointer border border-white/20"
               >
                 Save Report Photo
               </button>
@@ -511,9 +513,9 @@ export const Reports = () => {
 
       {/* Lightbox: View Full Size Photo Modal */}
       {selectedPhoto && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh]">
-            <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="fixed inset-0 z-50 glass-modal-backdrop flex items-center justify-center p-4">
+          <div className="glass-panel rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh] border border-white/95">
+            <div className="p-4 border-b border-slate-200/50 flex items-center justify-between">
               <div>
                 <h3 className="font-black text-slate-900 text-base">{selectedPhoto.title}</h3>
                 <p className="text-xs text-slate-500 font-bold">{selectedPhoto.date}</p>
@@ -526,11 +528,11 @@ export const Reports = () => {
               </button>
             </div>
 
-            <div className="flex-1 bg-slate-950 p-4 flex items-center justify-center overflow-auto">
+            <div className="flex-1 bg-slate-950/90 p-4 flex items-center justify-center overflow-auto backdrop-blur-md">
               <img
                 src={selectedPhoto.src}
                 alt={selectedPhoto.title}
-                className="max-h-[75vh] w-auto object-contain rounded-xl"
+                className="max-h-[75vh] w-auto object-contain rounded-xl shadow-lg"
               />
             </div>
           </div>

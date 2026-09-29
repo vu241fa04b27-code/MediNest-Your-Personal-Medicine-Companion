@@ -79,7 +79,7 @@ export const Medicines = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search your medicine name or purpose..."
-              className="glass-panel w-full rounded-2xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-900 outline-none focus:border-emerald-500 shadow-sm border border-white/90 placeholder:text-slate-400"
+              className="glass-input w-full rounded-2xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-900 outline-none placeholder:text-slate-400 shadow-xs"
             />
           </div>
 

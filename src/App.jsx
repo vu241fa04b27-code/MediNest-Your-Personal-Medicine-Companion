@@ -19,12 +19,13 @@ import { Settings } from './pages/Settings';
 
 export const App = () => {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans antialiased selection:bg-emerald-100 selection:text-emerald-950 relative">
+    <div className="min-h-screen bg-transparent flex flex-col font-sans antialiased selection:bg-emerald-100 selection:text-emerald-950 relative">
       {/* Ambient Atmospheric Glow Orbs for Glass Model Refraction */}
       <div className="ambient-glow-wrapper">
         <div className="orb-emerald"></div>
         <div className="orb-blue"></div>
         <div className="orb-purple"></div>
+        <div className="orb-amber"></div>
       </div>
 
       {/* Top Navigation Bar */}
