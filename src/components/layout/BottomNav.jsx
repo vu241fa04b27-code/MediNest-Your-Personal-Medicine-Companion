@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Pill, CalendarClock, BookHeart, User } from 'lucide-react';
+import { Home, Pill, CalendarClock, BookHeart, Settings } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export const BottomNav = () => {
@@ -11,30 +11,47 @@ export const BottomNav = () => {
     { to: '/medicines', icon: Pill, label: t('nav_medicines') },
     { to: '/hospital', icon: CalendarClock, label: t('nav_hospital') },
     { to: '/journal', icon: BookHeart, label: t('nav_journal') },
-    { to: '/settings', icon: User, label: t('nav_profile') },
+    { to: '/settings', icon: Settings, label: t('settings') },
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 bg-white/70 backdrop-blur-2xl border-t border-white/80 py-2.5 px-3 flex justify-around items-center lg:hidden shadow-[0_-8px_32px_rgba(15,23,42,0.08)] no-print">
-      {items.map((item) => {
-        const Icon = item.icon;
-        return (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl btn-reactive transition-all ${
-                isActive
-                  ? 'text-emerald-950 font-black bg-gradient-to-r from-emerald-500/20 to-teal-500/15 border border-emerald-300/90 shadow-sm backdrop-blur-md'
-                  : 'text-slate-600 font-bold hover:text-slate-900 hover:bg-white/60'
-              }`
-            }
-          >
-            <Icon className="w-5 h-5 stroke-[2.4]" />
-            <span className="text-[11px] tracking-tight">{item.label}</span>
-          </NavLink>
-        );
-      })}
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-[0_-2px_12px_rgba(15,23,42,0.08)] lg:hidden no-print">
+      <div className="flex items-stretch h-16">
+        {items.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === '/'}
+              className={({ isActive }) =>
+                `flex-1 flex flex-col items-center justify-center gap-0.5 px-1 transition-colors ${
+                  isActive
+                    ? 'text-emerald-600'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <div className={`flex items-center justify-center w-8 h-7 rounded-xl transition-colors ${
+                    isActive ? 'bg-emerald-50' : ''
+                  }`}>
+                    <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.8]' : 'stroke-[2]'}`} />
+                  </div>
+                  <span className={`text-[10px] leading-none tracking-tight font-bold truncate max-w-[56px] text-center ${
+                    isActive ? 'font-black' : ''
+                  }`}>
+                    {item.label}
+                  </span>
+                </>
+              )}
+            </NavLink>
+          );
+        })}
+      </div>
+      {/* Safe area for phones with home indicator */}
+      <div className="h-safe-area-bottom bg-white" style={{ height: 'env(safe-area-inset-bottom, 0px)' }} />
     </nav>
   );
 };

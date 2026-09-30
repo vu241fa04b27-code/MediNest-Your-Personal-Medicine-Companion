@@ -28,8 +28,8 @@ export const App = () => {
         {/* Left Sidebar for Desktop (>= 1024px) */}
         <Sidebar />
 
-        {/* Main Content Area */}
-        <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6 max-w-full overflow-x-hidden">
+        {/* Main Content Area — pb-20 on mobile to clear bottom nav */}
+        <main className="flex-1 px-3 sm:px-6 lg:px-8 py-4 sm:py-6 pb-24 lg:pb-6 max-w-full overflow-x-hidden min-w-0">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/medicines" element={<Medicines />} />
