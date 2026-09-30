@@ -118,6 +118,11 @@ class NotificationService {
     this.activeSnoozes.set(params.medicineName, timerId);
   }
 
+  // Public alias used by Settings test button
+  testSound() {
+    this.playChime();
+  }
+
   clearSnooze(medicineName) {
     if (this.activeSnoozes.has(medicineName)) {
       clearTimeout(this.activeSnoozes.get(medicineName));

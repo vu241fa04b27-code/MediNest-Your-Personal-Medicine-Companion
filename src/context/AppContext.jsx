@@ -132,21 +132,19 @@ export const AppProvider = ({ children }) => {
   }, [emergencyProfile]);
 
   useEffect(() => {
+    localStorage.setItem('medinest_hospital_info', JSON.stringify(hospitalInfo));
+  }, [hospitalInfo]);
+
+  useEffect(() => {
     localStorage.setItem('medinest_settings_v3', JSON.stringify(settings));
     if (settings.largeText) {
       document.body.classList.add('large-font');
     } else {
       document.body.classList.remove('large-font');
     }
-
+    // Clean up any legacy glass-mode classes
     const root = document.documentElement;
-    root.classList.remove('glass-crystal', 'glass-vibrant', 'glass-midnight', 'glass-off');
-    if (settings.glassMode !== false) {
-      root.classList.add('glass-mode');
-      root.classList.add(`glass-${settings.glassTheme || 'crystal'}`);
-    } else {
-      root.classList.add('glass-off');
-    }
+    root.classList.remove('glass-crystal', 'glass-vibrant', 'glass-midnight', 'glass-off', 'glass-mode');
   }, [settings]);
 
   // Actions: Medicine
@@ -207,15 +205,18 @@ export const AppProvider = ({ children }) => {
   const markDoseSnooze = (id) => {
     const med = medicines.find(m => m.id === id);
     if (!med) return;
-
-    notificationService.triggerMedicineNotification({
-      medicineName: med.name,
-      timing: med.time,
-      purpose: med.purpose,
-      escalationLevel: 1,
-      onTaken: () => markDoseTaken(id),
-      onSnooze: () => markDoseSnooze(id)
-    });
+    const snoozeMs = (settings.snoozeMinutes || 10) * 60 * 1000;
+    setTimeout(() => {
+      notificationService.triggerMedicineNotification({
+        medicineName: med.name,
+        timing: med.time,
+        purpose: med.purpose,
+        escalationLevel: 1,
+        onTaken: () => markDoseTaken(id),
+        onSnooze: () => markDoseSnooze(id)
+      });
+    }, snoozeMs);
+    alert(`Reminder snoozed for ${settings.snoozeMinutes || 10} minutes.`);
   };
 
   // Actions: Hospital Appointments
@@ -278,12 +279,12 @@ export const AppProvider = ({ children }) => {
     setSettings(prev => ({ ...prev, largeText: !prev.largeText }));
   };
 
-  const setGlassTheme = (theme) => {
-    setSettings(prev => ({ ...prev, glassTheme: theme, glassMode: true }));
+  const setSnoozeMinutes = (minutes) => {
+    setSettings(prev => ({ ...prev, snoozeMinutes: Number(minutes) || 10 }));
   };
 
-  const toggleGlassMode = () => {
-    setSettings(prev => ({ ...prev, glassMode: !prev.glassMode }));
+  const updateHospitalInfo = (info) => {
+    setHospitalInfo(prev => ({ ...prev, ...info }));
   };
 
   const updateUserName = (name) => {
@@ -377,7 +378,7 @@ export const AppProvider = ({ children }) => {
         addDoctor,
         deleteDoctor,
         hospitalInfo,
-        setHospitalInfo,
+        updateHospitalInfo,
         journalEntries,
         addJournalEntry,
         clinicalReports,
@@ -389,8 +390,7 @@ export const AppProvider = ({ children }) => {
         settings,
         setLanguage,
         toggleLargeText,
-        setGlassTheme,
-        toggleGlassMode,
+        setSnoozeMinutes,
         resetToDemo,
         t,
         nextMedicine,

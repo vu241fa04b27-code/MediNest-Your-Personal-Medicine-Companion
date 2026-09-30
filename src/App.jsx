@@ -16,18 +16,11 @@ import { History } from './pages/History';
 import { Reports } from './pages/Reports';
 import { Emergency } from './pages/Emergency';
 import { Settings } from './pages/Settings';
+import { NotFound } from './pages/NotFound';
 
 export const App = () => {
   return (
-    <div className="min-h-screen bg-transparent flex flex-col font-sans antialiased selection:bg-emerald-100 selection:text-emerald-950 relative">
-      {/* Ambient Atmospheric Glow Orbs for Glass Model Refraction */}
-      <div className="ambient-glow-wrapper">
-        <div className="orb-emerald"></div>
-        <div className="orb-blue"></div>
-        <div className="orb-purple"></div>
-        <div className="orb-amber"></div>
-      </div>
-
+    <div className="min-h-screen bg-slate-100 flex flex-col font-sans antialiased selection:bg-emerald-100 selection:text-emerald-950">
       {/* Top Navigation Bar */}
       <Navbar />
 
@@ -48,11 +41,12 @@ export const App = () => {
             <Route path="/reports" element={<Reports />} />
             <Route path="/emergency" element={<Emergency />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </div>
 
-      {/* Floating Add Medicine Button (safe margin, never overlaps) */}
+      {/* Floating Add Medicine Button */}
       <FloatingAddButton />
 
       {/* Mobile Bottom Navigation Bar (< 1024px) */}

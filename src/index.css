@@ -8,425 +8,224 @@
 }
 
 /* ======================================================== */
-/* 💎 THE ULTRA GLASS MODEL & REFRACTION SYSTEM            */
+/* LIGHT MODE — CLEAN CARD DESIGN SYSTEM                   */
 /* ======================================================== */
 
 body {
-  background: 
-    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 55%),
-    radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.18) 0px, transparent 55%),
-    radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.12) 0px, transparent 60%),
-    radial-gradient(at 0% 100%, rgba(245, 158, 11, 0.10) 0px, transparent 55%),
-    #f4f7fb;
+  background: #f1f5f9;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
   min-height: 100vh;
-  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body.large-font {
   font-size: 1.15rem;
 }
 
-/* Vibrant Aurora Glass Mode */
-html.glass-vibrant body {
-  background: 
-    radial-gradient(at 5% 5%, rgba(16, 185, 129, 0.25) 0px, transparent 50%),
-    radial-gradient(at 95% 10%, rgba(14, 165, 233, 0.28) 0px, transparent 50%),
-    radial-gradient(at 85% 90%, rgba(236, 72, 153, 0.20) 0px, transparent 55%),
-    radial-gradient(at 10% 90%, rgba(139, 92, 246, 0.22) 0px, transparent 50%),
-    #eef5ff;
-}
-
-/* Midnight Dark Glass Mode */
-html.glass-midnight {
-  color-scheme: dark;
-}
-
-html.glass-midnight body {
-  background: 
-    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.22) 0px, transparent 55%),
-    radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.25) 0px, transparent 55%),
-    radial-gradient(at 70% 100%, rgba(168, 85, 247, 0.22) 0px, transparent 55%),
-    #0b1120;
-  color: #f1f5f9;
-}
-
-/* Ambient Refractive Background Glow Orbs */
-.ambient-glow-wrapper {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.orb-emerald {
-  position: absolute;
-  top: -8%;
-  left: -5%;
-  width: 580px;
-  height: 580px;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(20, 184, 166, 0.10) 50%, transparent 75%);
-  filter: blur(65px);
-  animation: floatOrb 18s ease-in-out infinite alternate;
-}
-
-.orb-blue {
-  position: absolute;
-  top: 15%;
-  right: -5%;
-  width: 620px;
-  height: 620px;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.24) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 75%);
-  filter: blur(75px);
-  animation: floatOrb 22s ease-in-out infinite alternate-reverse;
-}
-
-.orb-purple {
-  position: absolute;
-  bottom: 8%;
-  left: 20%;
-  width: 520px;
-  height: 520px;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.16) 0%, rgba(236, 72, 153, 0.08) 50%, transparent 75%);
-  filter: blur(70px);
-  animation: floatOrb 25s ease-in-out infinite alternate;
-}
-
-.orb-amber {
-  position: absolute;
-  bottom: 25%;
-  right: 15%;
-  width: 440px;
-  height: 440px;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, rgba(251, 191, 36, 0.05) 50%, transparent 75%);
-  filter: blur(60px);
-  animation: floatOrb 20s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes floatOrb {
-  0% { transform: translate(0px, 0px) scale(1); }
-  50% { transform: translate(35px, -25px) scale(1.06); }
-  100% { transform: translate(-25px, 30px) scale(0.96); }
-}
-
 /* ======================================================== */
-/* 💎 FROSTED GLASS PANELS & CARDS                         */
+/* PANELS & CARDS                                          */
 /* ======================================================== */
 
-/* Glass Panels (Hero cards, navigation headers, large containers) */
+/* Panels — section containers, hero banners */
 .glass-panel {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.76) 0%, rgba(255, 255, 255, 0.50) 100%);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 
-    0 20px 40px -15px rgba(15, 23, 42, 0.05),
-    0 0 0 1px rgba(255, 255, 255, 0.45),
-    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.2s ease;
 }
 
-/* Glass Cards (Medicine items, doctor cards, diary logs) */
+/* Cards — item cards, list entries */
 .glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.44) 100%);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.80);
-  box-shadow: 
-    0 12px 28px -6px rgba(15, 23, 42, 0.04),
-    0 0 0 1px rgba(255, 255, 255, 0.40),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
+  transition: all 0.2s ease;
 }
 
 .glass-card:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.65) 100%);
-  border-color: rgba(255, 255, 255, 1);
-  transform: translateY(-3px) scale(1.008);
-  box-shadow: 
-    0 22px 45px -10px rgba(15, 23, 42, 0.09),
-    0 0 0 1px rgba(16, 185, 129, 0.25),
-    inset 0 2px 2px 0 rgba(255, 255, 255, 1);
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  transform: translateY(-2px);
 }
 
-/* Glass Inputs, Textareas, Selects */
+/* Inputs, Textareas, Selects */
 .glass-input {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: inset 0 2px 4px 0 rgba(15, 23, 42, 0.03);
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
   color: #0f172a;
-  transition: all 0.22s ease;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .glass-input:focus {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(16, 185, 129, 0.9);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2), inset 0 1px 2px 0 rgba(15, 23, 42, 0.02);
+  background: #ffffff;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+  outline: none;
 }
 
-/* Glass Pill Badges */
+/* Pill / Badge */
 .glass-pill {
-  background: rgba(255, 255, 255, 0.70);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.88);
-  box-shadow: 0 2px 8px 0 rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
 }
 
-/* Glass Modals */
+/* Modal Backdrop */
 .glass-modal-backdrop {
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.5);
 }
 
 /* ======================================================== */
-/* 🌙 MIDNIGHT GLASS MODE ADAPTATIONS                      */
-/* ======================================================== */
-
-html.glass-midnight .glass-panel {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.78) 0%, rgba(15, 23, 42, 0.65) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 
-    0 20px 40px -15px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.20);
-  color: #f8fafc;
-}
-
-html.glass-midnight .glass-card {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.72) 0%, rgba(15, 23, 42, 0.58) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 
-    0 12px 28px -6px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
-  color: #f8fafc;
-}
-
-html.glass-midnight .glass-card:hover {
-  background: linear-gradient(135deg, rgba(51, 65, 85, 0.82) 0%, rgba(30, 41, 59, 0.70) 100%);
-  border-color: rgba(52, 211, 153, 0.45);
-  box-shadow: 
-    0 22px 45px -10px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(52, 211, 153, 0.3),
-    inset 0 2px 2px 0 rgba(255, 255, 255, 0.25);
-}
-
-html.glass-midnight .glass-input {
-  background: rgba(15, 23, 42, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: #f8fafc;
-}
-
-html.glass-midnight .glass-input:focus {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: rgba(52, 211, 153, 0.8);
-  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.25);
-}
-
-html.glass-midnight .glass-pill {
-  background: rgba(30, 41, 59, 0.75);
-  border-color: rgba(255, 255, 255, 0.16);
-  color: #e2e8f0;
-}
-
-/* Midnight Text Adjustments */
-html.glass-midnight .text-slate-900 {
-  color: #f8fafc !important;
-}
-
-html.glass-midnight .text-slate-800 {
-  color: #f1f5f9 !important;
-}
-
-html.glass-midnight .text-slate-700 {
-  color: #e2e8f0 !important;
-}
-
-html.glass-midnight .text-slate-600 {
-  color: #cbd5e1 !important;
-}
-
-html.glass-midnight .text-slate-500 {
-  color: #94a3b8 !important;
-}
-
-/* ======================================================== */
-/* 💎 TACTILE GLASS BUTTONS & ACTIONS                      */
+/* BUTTONS                                                 */
 /* ======================================================== */
 
 .btn-reactive {
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, box-shadow;
 }
 
 .btn-reactive:hover {
-  transform: translateY(-2.5px) scale(1.025);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .btn-reactive:active {
-  transform: translateY(1px) scale(0.965);
+  transform: translateY(1px) scale(0.97);
 }
 
-/* Glass Emerald Button */
+/* White / Neutral Button */
+.glass-btn-white {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.glass-btn-white:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+}
+
+/* Emerald Button */
 .glass-btn-emerald {
   background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-  border: 1px solid rgba(255, 255, 255, 0.40);
-  box-shadow: 
-    0 10px 25px -4px rgba(16, 185, 129, 0.38),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.50);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px -2px rgba(16, 185, 129, 0.35);
 }
 
 .glass-btn-emerald:hover {
   background: linear-gradient(135deg, #047857 0%, #059669 100%);
-  box-shadow: 
-    0 16px 32px -4px rgba(16, 185, 129, 0.48),
-    inset 0 2px 2px 0 rgba(255, 255, 255, 0.60);
+  box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.45);
 }
 
-/* Glass White Button */
-.glass-btn-white {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.65) 100%);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  box-shadow: 
-    0 6px 18px -2px rgba(15, 23, 42, 0.05),
-    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+/* Glow Effects on Hover */
+.btn-glow-emerald:hover {
+  box-shadow: 0 8px 24px -4px rgba(16, 185, 129, 0.40);
 }
 
-.glass-btn-white:hover {
-  background: rgba(255, 255, 255, 0.98);
-  border-color: rgba(203, 213, 225, 0.8);
-  box-shadow: 
-    0 12px 28px -4px rgba(15, 23, 42, 0.08),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
+.btn-glow-blue:hover {
+  box-shadow: 0 8px 24px -4px rgba(2, 132, 199, 0.40);
 }
 
-html.glass-midnight .glass-btn-white {
-  background: linear-gradient(135deg, rgba(51, 65, 85, 0.8) 0%, rgba(30, 41, 59, 0.65) 100%);
-  border-color: rgba(255, 255, 255, 0.16);
-  color: #f1f5f9;
-}
-
-html.glass-midnight .glass-btn-white:hover {
-  background: rgba(71, 85, 105, 0.9);
-  border-color: rgba(255, 255, 255, 0.25);
+.btn-glow-red:hover {
+  box-shadow: 0 8px 24px -4px rgba(225, 29, 72, 0.40);
 }
 
 /* ======================================================== */
-/* 📅 CALENDAR VIBRANT GLASS DAY TILES                      */
+/* CALENDAR DAY TILES                                      */
 /* ======================================================== */
 
 .glass-day-complete {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(5, 150, 105, 0.16) 100%) !important;
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1.5px solid rgba(16, 185, 129, 0.50) !important;
-  box-shadow: 0 6px 16px -2px rgba(16, 185, 129, 0.20), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.7) !important;
+  background: #ecfdf5 !important;
+  border: 1.5px solid #6ee7b7 !important;
+  box-shadow: 0 2px 6px -1px rgba(16, 185, 129, 0.15) !important;
   color: #064e3b !important;
 }
 
 .glass-day-complete:hover {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.36) 0%, rgba(5, 150, 105, 0.24) 100%) !important;
-  border-color: rgba(16, 185, 129, 0.8) !important;
-  transform: translateY(-2.5px) scale(1.03);
-  box-shadow: 0 10px 22px -3px rgba(16, 185, 129, 0.30), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.8) !important;
+  background: #d1fae5 !important;
+  border-color: #34d399 !important;
+  transform: translateY(-2px) scale(1.03);
 }
 
 .glass-day-today {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.32) 0%, rgba(217, 119, 6, 0.20) 100%) !important;
-  backdrop-filter: blur(18px) saturate(190%);
-  -webkit-backdrop-filter: blur(18px) saturate(190%);
+  background: #fffbeb !important;
   border: 2px solid #f59e0b !important;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25), 0 8px 22px -2px rgba(245, 158, 11, 0.35), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15), 0 4px 12px -2px rgba(245, 158, 11, 0.25) !important;
   color: #78350f !important;
 }
 
 .glass-day-today:hover {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.44) 0%, rgba(217, 119, 6, 0.28) 100%) !important;
+  background: #fef3c7 !important;
   border-color: #d97706 !important;
-  transform: translateY(-2.5px) scale(1.04);
+  transform: translateY(-2px) scale(1.04);
 }
 
 .glass-day-future {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.18) 0%, rgba(99, 102, 241, 0.10) 100%) !important;
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  border: 1.5px solid rgba(14, 165, 233, 0.40) !important;
-  box-shadow: 0 6px 14px -2px rgba(14, 165, 233, 0.16), inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.6) !important;
+  background: #f0f9ff !important;
+  border: 1.5px solid #7dd3fc !important;
+  box-shadow: 0 2px 6px -1px rgba(14, 165, 233, 0.12) !important;
   color: #0c4a6e !important;
 }
 
 .glass-day-future:hover {
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.28) 0%, rgba(99, 102, 241, 0.16) 100%) !important;
-  border-color: rgba(14, 165, 233, 0.7) !important;
-  transform: translateY(-2.5px) scale(1.03);
+  background: #e0f2fe !important;
+  border-color: #38bdf8 !important;
+  transform: translateY(-2px) scale(1.03);
 }
 
-/* Midnight Dark Glass Day Variants */
-html.glass-midnight .glass-day-complete {
-  background: linear-gradient(135deg, rgba(6, 78, 59, 0.70) 0%, rgba(6, 95, 70, 0.50) 100%) !important;
-  border-color: rgba(52, 211, 153, 0.5) !important;
-  color: #a7f3d0 !important;
-  box-shadow: 0 6px 18px -2px rgba(16, 185, 129, 0.35) !important;
+.glass-day-missed {
+  background: #fff1f2 !important;
+  border: 1.5px solid #fca5a5 !important;
+  box-shadow: 0 2px 6px -1px rgba(239, 68, 68, 0.12) !important;
+  color: #7f1d1d !important;
 }
 
-html.glass-midnight .glass-day-today {
-  background: linear-gradient(135deg, rgba(146, 64, 14, 0.75) 0%, rgba(180, 83, 9, 0.55) 100%) !important;
-  border-color: #fbbf24 !important;
-  color: #fef3c7 !important;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35), 0 8px 24px -2px rgba(245, 158, 11, 0.45) !important;
+/* ======================================================== */
+/* ANIMATIONS                                              */
+/* ======================================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-html.glass-midnight .glass-day-future {
-  background: linear-gradient(135deg, rgba(30, 58, 138, 0.60) 0%, rgba(49, 46, 129, 0.45) 100%) !important;
-  border-color: rgba(96, 165, 250, 0.45) !important;
-  color: #bae6fd !important;
-  box-shadow: 0 6px 16px -2px rgba(14, 165, 233, 0.25) !important;
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-/* Glow effects */
-.btn-glow-emerald:hover {
-  box-shadow: 0 12px 30px -4px rgba(16, 185, 129, 0.45);
+.animate-fadeIn {
+  animation: fadeIn 0.35s ease-out both;
 }
 
-.btn-glow-blue:hover {
-  box-shadow: 0 12px 30px -4px rgba(2, 132, 199, 0.45);
+.animate-scaleUp {
+  animation: scaleUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.btn-glow-red:hover {
-  box-shadow: 0 12px 30px -4px rgba(225, 29, 72, 0.45);
-}
+/* ======================================================== */
+/* SCROLLBAR                                               */
+/* ======================================================== */
 
-/* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(241, 245, 249, 0.5);
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.5);
-  backdrop-filter: blur(6px);
+  background: #cbd5e1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.7);
+  background: #94a3b8;
 }
+
+/* ======================================================== */
+/* PRINT                                                   */
+/* ======================================================== */
 
 @media print {
   .no-print {
@@ -434,5 +233,13 @@ html.glass-midnight .glass-day-future {
   }
   .print-only {
     display: block !important;
+  }
+  body {
+    background: #ffffff;
+  }
+  .glass-panel,
+  .glass-card {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
   }
 }
